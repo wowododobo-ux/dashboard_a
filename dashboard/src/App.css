@@ -616,3 +616,75 @@ body {
     font-size: 12px;
   }
 }
+
+/* ============================================ */
+/* 警報面板容器 */
+/* ============================================ */
+.alert-panel-container {
+  padding: 0 10px;
+  margin-top: 12px;
+  position: relative;
+  z-index: 100;
+}
+
+/* ============================================ */
+/* 全局篩選器容器 */
+/* ============================================ */
+.global-filter-container {
+  padding: 0 10px;
+  margin-top: 0;
+  position: relative;
+  z-index: 90;
+}
+
+/* 圖表高亮效果 - 當從警報點擊跳轉時 */
+@keyframes chartHighlight {
+  0%, 100% {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.05);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(255, 193, 7, 0.8), 0 0 50px rgba(255, 193, 7, 0.5);
+    border-color: rgba(255, 193, 7, 0.8);
+  }
+}
+
+.chart-highlight {
+  animation: chartHighlight 1.5s ease-in-out 2;
+  position: relative;
+  z-index: 10;
+}
+
+/* 響應式調整 */
+@media (max-width: 1024px) {
+  .alert-panel-container {
+    padding: 0 15px;
+    margin-top: 10px;
+  }
+
+  .global-filter-container {
+    padding: 0 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .alert-panel-container {
+    padding: 0 12px;
+    margin-top: 8px;
+  }
+
+  .global-filter-container {
+    padding: 0 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .alert-panel-container {
+    padding: 0 10px;
+    margin-top: 8px;
+  }
+
+  .global-filter-container {
+    padding: 0 10px;
+  }
+}

@@ -2,7 +2,7 @@ import * as XLSX from 'xlsx';
 
 export async function loadSupplyChainData() {
   try {
-    const response = await fetch('/供應鏈與原材料.xlsx');
+    const response = await fetch(encodeURI('/供應鏈與原材料.xlsx'));
     const arrayBuffer = await response.arrayBuffer();
     const workbook = XLSX.read(arrayBuffer, { type: 'array' });
 

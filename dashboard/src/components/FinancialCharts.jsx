@@ -154,7 +154,7 @@ const CustomXAxisTick = ({ x, y, payload, chartData, angle = 0, isMobile = false
 };
 
 // 圖表容器樣式
-const ChartContainer = ({ title, children, onClick }) => {
+const ChartContainer = ({ id, title, children, onClick }) => {
   const chartRef = useRef(null);
   const buttonRef = useRef(null);
   const [copying, setCopying] = useState(false);
@@ -248,6 +248,7 @@ const ChartContainer = ({ title, children, onClick }) => {
 
   return (
     <div
+      id={id}
       className="chart-container"
       ref={chartRef}
       onContextMenu={handleContextMenu}
@@ -303,7 +304,7 @@ export const Chart1 = ({ data, onClick }) => {
   const labelRenderer3 = useMemo(() => createBarLabelRenderer(chartData, formatMoney, 9), [chartData]);
 
   return (
-    <ChartContainer title={textConfig.financialCharts.chart1} onClick={onClick}>
+    <ChartContainer id="chart1" title={textConfig.financialCharts.chart1} onClick={onClick}>
       <ResponsiveContainer width="100%" aspect={2.5}>
         <ComposedChart data={chartData} margin={{ top: 8, right: 10, left: 10, bottom: 2 }} barCategoryGap="15%">
           <CartesianGrid strokeDasharray="3 3" />
@@ -370,7 +371,7 @@ export const Chart2 = ({ data, onClick }) => {
   const labelRenderer = useMemo(() => createBarLabelRenderer(chartData, formatMoney, 10), [chartData]);
 
   return (
-    <ChartContainer title={textConfig.financialCharts.chart2} onClick={onClick}>
+    <ChartContainer id="chart2" title={textConfig.financialCharts.chart2} onClick={onClick}>
       <ResponsiveContainer width="100%" aspect={2.5}>
         <ComposedChart data={chartData} margin={{ top: 8, right: 10, left: 10, bottom: 2 }} barCategoryGap="15%" barGap={0}>
           <CartesianGrid strokeDasharray="3 3" />
@@ -424,7 +425,7 @@ export const Chart3 = ({ data, onClick }) => {
   const labelRenderer = useMemo(() => createBarLabelRenderer(chartData, formatMoney, 10), [chartData]);
 
   return (
-    <ChartContainer title={textConfig.financialCharts.chart3} onClick={onClick}>
+    <ChartContainer id="chart3" title={textConfig.financialCharts.chart3} onClick={onClick}>
       <ResponsiveContainer width="100%" aspect={2.5}>
         <ComposedChart data={chartData} margin={{ top: 8, right: 10, left: 10, bottom: 2 }} barCategoryGap="15%">
           <CartesianGrid strokeDasharray="3 3" />
@@ -479,7 +480,7 @@ export const Chart4 = ({ data, onClick }) => {
   const labelRenderer = useMemo(() => createBarLabelRenderer(chartData, formatMoney, 10), [chartData]);
 
   return (
-    <ChartContainer title={textConfig.financialCharts.chart4} onClick={onClick}>
+    <ChartContainer id="chart4" title={textConfig.financialCharts.chart4} onClick={onClick}>
       <ResponsiveContainer width="100%" aspect={2.5}>
         <ComposedChart data={chartData} margin={{ top: 8, right: 10, left: 10, bottom: 2 }} barCategoryGap="15%">
           <CartesianGrid strokeDasharray="3 3" />
@@ -531,7 +532,7 @@ export const Chart5 = ({ data, onClick }) => {
   const labelRenderer = useMemo(() => createBarLabelRenderer(chartData, formatMoney, 10), [chartData]);
 
   return (
-    <ChartContainer title={textConfig.financialCharts.chart5} onClick={onClick}>
+    <ChartContainer id="chart5" title={textConfig.financialCharts.chart5} onClick={onClick}>
       <ResponsiveContainer width="100%" aspect={2.5}>
         <BarChart data={chartData} margin={{ top: 8, right: 10, left: 10, bottom: 2 }} barCategoryGap="15%">
           <CartesianGrid strokeDasharray="3 3" />
@@ -585,7 +586,7 @@ export const Chart6 = ({ data, onClick }) => {
   const labelRenderer3 = useMemo(() => createBarLabelRenderer(chartData, formatMoney, 9), [chartData]);
 
   return (
-    <ChartContainer title={textConfig.financialCharts.chart6} onClick={onClick}>
+    <ChartContainer id="chart6" title={textConfig.financialCharts.chart6} onClick={onClick}>
       <ResponsiveContainer width="100%" aspect={2.5}>
         <ComposedChart data={chartData} margin={{ top: 8, right: 10, left: 10, bottom: 2 }} barCategoryGap="15%">
           <CartesianGrid strokeDasharray="3 3" />
@@ -652,7 +653,7 @@ export const Chart7 = ({ data, onClick }) => {
   const labelRenderer = useMemo(() => createBarLabelRenderer(chartData, formatMoney, 10), [chartData]);
 
   return (
-    <ChartContainer title={textConfig.financialCharts.chart7} onClick={onClick}>
+    <ChartContainer id="chart7" title={textConfig.financialCharts.chart7} onClick={onClick}>
       <ResponsiveContainer width="100%" aspect={2.5}>
         <ComposedChart data={chartData} margin={{ top: 8, right: 10, left: 10, bottom: 2 }} barCategoryGap="15%">
           <CartesianGrid strokeDasharray="3 3" />
@@ -707,7 +708,7 @@ export const Chart8 = ({ data, onClick }) => {
   const labelRenderer = useMemo(() => createBarLabelRenderer(chartData, formatMoney, 10), [chartData]);
 
   return (
-    <ChartContainer title={textConfig.financialCharts.chart8} onClick={onClick}>
+    <ChartContainer id="chart8" title={textConfig.financialCharts.chart8} onClick={onClick}>
       <ResponsiveContainer width="100%" aspect={2.5}>
         <ComposedChart data={chartData} margin={{ top: 8, right: 10, left: 10, bottom: 2 }} barCategoryGap="15%">
           <CartesianGrid strokeDasharray="3 3" />
@@ -762,7 +763,7 @@ export const Chart9 = ({ data, onClick }) => {
   const labelRenderer = useMemo(() => createBarLabelRenderer(chartData, formatMoney, 10), [chartData]);
 
   return (
-    <ChartContainer title={textConfig.financialCharts.chart9} onClick={onClick}>
+    <ChartContainer id="chart9" title={textConfig.financialCharts.chart9} onClick={onClick}>
       <ResponsiveContainer width="100%" aspect={2.5}>
         <ComposedChart data={chartData} margin={{ top: 8, right: 10, left: 10, bottom: 2 }} barCategoryGap="15%">
           <CartesianGrid strokeDasharray="3 3" />

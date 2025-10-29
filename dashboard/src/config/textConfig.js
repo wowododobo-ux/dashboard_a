@@ -91,6 +91,107 @@ export const textConfig = {
   },
 
   // ============================================
+  // KPI 目標對比卡片
+  // ============================================
+  kpi: {
+    target: '目標',
+    gap: '差距',
+    vsYesterday: '較昨日',
+    onTarget: '達標',
+    offTarget: '未達標',
+    trend: '趨勢',
+    current: '當前',
+    change: '變化',
+  },
+
+  // ============================================
+  // 實時警報系統
+  // ============================================
+  alerts: {
+    title: '實時警報中心',
+    noAlerts: '暫無警報',
+    allAlerts: '全部警報',
+    pendingAlerts: '待處理',
+    criticalAlerts: '緊急',
+    warningAlerts: '警告',
+    infoAlerts: '資訊',
+    acknowledgedAlerts: '已確認',
+    resolvedAlerts: '已解決',
+    acknowledge: '確認',
+    resolve: '解決',
+    viewDetails: '查看詳情',
+    expand: '展開',
+    collapse: '收起',
+    filterAll: '全部',
+    filterPending: '待處理',
+    filterCritical: '緊急',
+    filterWarning: '警告',
+    severity: {
+      critical: '緊急',
+      warning: '警告',
+      info: '資訊',
+    },
+    status: {
+      pending: '待處理',
+      acknowledged: '已確認',
+      resolved: '已解決',
+    },
+    metrics: {
+      currentValue: '當前值',
+      threshold: '閾值',
+      target: '目標值',
+    },
+    time: {
+      justNow: '剛剛',
+      minutesAgo: '分鐘前',
+      hoursAgo: '小時前',
+      daysAgo: '天前',
+    },
+  },
+
+  // ============================================
+  // 全局篩選器
+  // ============================================
+  globalFilter: {
+    title: '全局篩選器',
+    reset: '重置篩選',
+    apply: '確認',
+    cancel: '取消',
+    all: '全部',
+    currentFilters: '當前篩選條件',
+
+    // 時間範圍
+    timeRange: '時間範圍',
+    today: '今天',
+    thisWeek: '本週',
+    thisMonth: '本月',
+    last7Days: '最近7天',
+    last30Days: '最近30天',
+    custom: '自定義日期',
+    startDate: '開始日期',
+    endDate: '結束日期',
+
+    // 生產區域
+    area: '生產區域',
+    areaA: 'A區',
+    areaB: 'B區',
+    areaC: 'C區',
+
+    // 產品線
+    productLine: '產品線',
+    line5nm: '5nm製程',
+    line7nm: '7nm製程',
+    line12nm: '12nm製程',
+    line16nm: '16nm製程',
+
+    // 班別
+    shift: '班別',
+    shiftA: 'A班 (早班)',
+    shiftB: 'B班 (中班)',
+    shiftC: 'C班 (晚班)',
+  },
+
+  // ============================================
   // 共用文字
   // ============================================
   common: {
@@ -185,6 +286,9 @@ export const textConfig = {
     cycleTime: '生產週期與準時交貨率',
     defectDensity: '缺陷密度分析（按產品類型）',
     wipInventory: 'WIP（在製品）庫存水平',
+    productionSchedule: '生產排程達成率',
+    productYieldByArea: '產品別良率分析（按區域與產品線）',
+    productYieldTable: '產品別良率數據表',
   },
 
   // ============================================

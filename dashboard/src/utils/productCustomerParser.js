@@ -2,7 +2,7 @@ import * as XLSX from 'xlsx';
 
 export async function loadProductCustomerData() {
   try {
-    const response = await fetch('/產品與客戶銷售獲利分析.xlsx');
+    const response = await fetch(encodeURI('/產品與客戶銷售獲利分析.xlsx'));
     const arrayBuffer = await response.arrayBuffer();
     const workbook = XLSX.read(arrayBuffer, { type: 'array' });
 

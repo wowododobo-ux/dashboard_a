@@ -2,7 +2,7 @@ import * as XLSX from 'xlsx';
 
 export async function loadBookToBillData() {
   try {
-    const response = await fetch('/訂單出貨比.xlsx');
+    const response = await fetch(encodeURI('/訂單出貨比.xlsx'));
     const arrayBuffer = await response.arrayBuffer();
     const workbook = XLSX.read(arrayBuffer, { type: 'array' });
 

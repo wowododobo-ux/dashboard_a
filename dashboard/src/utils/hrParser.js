@@ -2,7 +2,7 @@ import * as XLSX from 'xlsx';
 
 export async function loadHRData() {
   try {
-    const response = await fetch('/人力資源.xlsx');
+    const response = await fetch(encodeURI('/人力資源.xlsx'));
     const arrayBuffer = await response.arrayBuffer();
     const workbook = XLSX.read(arrayBuffer, { type: 'array' });
     const data = {};

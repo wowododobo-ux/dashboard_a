@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import './App.css';
 import HomePage from './pages/HomePage';
 import FinancialTrends from './pages/FinancialTrends';
@@ -88,25 +89,31 @@ function Navigation() {
   );
 }
 
+function AppContent() {
+  return (
+    <div className="app-wrapper">
+      <Navigation />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/financial" element={<FinancialTrends />} />
+        <Route path="/product-customer" element={<ProductCustomerAnalysis />} />
+        <Route path="/book-to-bill" element={<BookToBill />} />
+        <Route path="/production" element={<ProductionOperations />} />
+        <Route path="/market" element={<MarketCustomer />} />
+        <Route path="/supply-chain" element={<SupplyChain />} />
+        <Route path="/rd" element={<RDTechnology />} />
+        <Route path="/hr" element={<HumanResources />} />
+        <Route path="/risk" element={<RiskManagement />} />
+        <Route path="/compare/:chartId" element={<YearComparison />} />
+      </Routes>
+    </div>
+  );
+}
+
 function App() {
   return (
     <Router>
-      <div className="app-wrapper">
-        <Navigation />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/financial" element={<FinancialTrends />} />
-          <Route path="/product-customer" element={<ProductCustomerAnalysis />} />
-          <Route path="/book-to-bill" element={<BookToBill />} />
-          <Route path="/production" element={<ProductionOperations />} />
-          <Route path="/market" element={<MarketCustomer />} />
-          <Route path="/supply-chain" element={<SupplyChain />} />
-          <Route path="/rd" element={<RDTechnology />} />
-          <Route path="/hr" element={<HumanResources />} />
-          <Route path="/risk" element={<RiskManagement />} />
-          <Route path="/compare/:chartId" element={<YearComparison />} />
-        </Routes>
-      </div>
+      <AppContent />
     </Router>
   );
 }

@@ -2,7 +2,7 @@ import * as XLSX from 'xlsx';
 
 export async function loadRiskData() {
   try {
-    const response = await fetch('/風險管理.xlsx');
+    const response = await fetch(encodeURI('/風險管理.xlsx'));
     const arrayBuffer = await response.arrayBuffer();
     const workbook = XLSX.read(arrayBuffer, { type: 'array' });
     const data = {};

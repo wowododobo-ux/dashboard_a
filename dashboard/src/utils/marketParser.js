@@ -2,7 +2,7 @@ import * as XLSX from 'xlsx';
 
 export async function loadMarketData() {
   try {
-    const response = await fetch('/市場與客戶指標.xlsx');
+    const response = await fetch(encodeURI('/市場與客戶指標.xlsx'));
     const arrayBuffer = await response.arrayBuffer();
     const workbook = XLSX.read(arrayBuffer, { type: 'array' });
 

@@ -2,7 +2,7 @@ import * as XLSX from 'xlsx';
 
 export async function loadExcelData() {
   try {
-    const response = await fetch('/財務趨勢模擬資料.xlsx');
+    const response = await fetch(encodeURI('/財務趨勢模擬資料.xlsx'));
     const arrayBuffer = await response.arrayBuffer();
     const workbook = XLSX.read(arrayBuffer, { type: 'array' });
 
