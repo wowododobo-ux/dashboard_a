@@ -1,19 +1,24 @@
 import { useState, useEffect } from 'react';
-import { loadBookToBillData, filterByYear } from '../utils/bookToBillParser';
-import { BookToBillHeatmap } from '../components/HeatmapChart';
-import { ShipmentWithN6RatiosByDate } from '../components/BookToBillUpdateDateCharts';
+import { loadProductionData, filterByYear } from '../utils/productionParser';
+import {
+  WaferYieldChart,
+  CapacityOEEChart,
+  CycleTimeChart,
+  DefectDensityChart,
+  WIPInventoryChart
+} from '../components/ProductionCharts';
 import { textConfig } from '../config/textConfig';
 
-function BookToBill() {
+function ProductionOperations() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [selectedYear, setSelectedYear] = useState('2025');
+  const [selectedYear, setSelectedYear] = useState('2024');
 
   useEffect(() => {
     async function fetchData() {
       setLoading(true);
-      const excelData = await loadBookToBillData();
-      setData(excelData);
+      const productionData = await loadProductionData();
+      setData(productionData);
       setLoading(false);
     }
     fetchData();
@@ -22,7 +27,7 @@ function BookToBill() {
   if (loading) {
     return (
       <div className="loading-container">
-        <h2>{textConfig.pageHeaders.loadingBookToBill}</h2>
+        <h2>{textConfig.pageHeaders.loadingProduction}</h2>
       </div>
     );
   }
@@ -43,7 +48,7 @@ function BookToBill() {
   return (
     <div className="dashboard">
       <header className="dashboard-header">
-        <h1>{textConfig.pageHeaders.bookToBill}</h1>
+        <h1>{textConfig.pageHeaders.production}</h1>
         <div className="year-selector">
           <label>{textConfig.yearSelector.label}</label>
           <select value={selectedYear} onChange={(e) => setSelectedYear(e.target.value)}>
@@ -57,18 +62,18 @@ function BookToBill() {
       </header>
 
       <div className="dashboard-grid">
-        <BookToBillHeatmap data={getFilteredData(data['矩陣比值'])} />
-
-        <ShipmentWithN6RatiosByDate matrixDataWithDates={getFilteredData(data['矩陣比值_更新日期'])} />
+        <WaferYieldChart data={getFilteredData(data['晶圓良率分析'])} />
+        <CapacityOEEChart data={getFilteredData(data['產能利用率與OEE'])} />
+        <CycleTimeChart data={getFilteredData(data['生產週期與交貨'])} />
+        <DefectDensityChart data={getFilteredData(data['缺陷密度分析'])} />
+        <WIPInventoryChart data={getFilteredData(data['WIP庫存水平'])} />
       </div>
 
       <footer className="dashboard-footer">
-        <p>
-          {textConfig.footer.bookToBill}
-        </p>
+        <p>{textConfig.footer.production}</p>
       </footer>
     </div>
   );
 }
 
-export default BookToBill;
+export default ProductionOperations;

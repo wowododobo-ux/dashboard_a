@@ -1,19 +1,22 @@
 import { useState, useEffect } from 'react';
-import { loadBookToBillData, filterByYear } from '../utils/bookToBillParser';
-import { BookToBillHeatmap } from '../components/HeatmapChart';
-import { ShipmentWithN6RatiosByDate } from '../components/BookToBillUpdateDateCharts';
+import { loadMarketData, filterByYear } from '../utils/marketParser';
+import {
+  MarketShareChart,
+  CustomerOrdersChart,
+  CustomerSatisfactionChart
+} from '../components/MarketCharts';
 import { textConfig } from '../config/textConfig';
 
-function BookToBill() {
+function MarketCustomer() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [selectedYear, setSelectedYear] = useState('2025');
+  const [selectedYear, setSelectedYear] = useState('2024');
 
   useEffect(() => {
     async function fetchData() {
       setLoading(true);
-      const excelData = await loadBookToBillData();
-      setData(excelData);
+      const marketData = await loadMarketData();
+      setData(marketData);
       setLoading(false);
     }
     fetchData();
@@ -22,7 +25,7 @@ function BookToBill() {
   if (loading) {
     return (
       <div className="loading-container">
-        <h2>{textConfig.pageHeaders.loadingBookToBill}</h2>
+        <h2>{textConfig.pageHeaders.loadingMarket}</h2>
       </div>
     );
   }
@@ -43,7 +46,7 @@ function BookToBill() {
   return (
     <div className="dashboard">
       <header className="dashboard-header">
-        <h1>{textConfig.pageHeaders.bookToBill}</h1>
+        <h1>{textConfig.pageHeaders.market}</h1>
         <div className="year-selector">
           <label>{textConfig.yearSelector.label}</label>
           <select value={selectedYear} onChange={(e) => setSelectedYear(e.target.value)}>
@@ -57,18 +60,16 @@ function BookToBill() {
       </header>
 
       <div className="dashboard-grid">
-        <BookToBillHeatmap data={getFilteredData(data['矩陣比值'])} />
-
-        <ShipmentWithN6RatiosByDate matrixDataWithDates={getFilteredData(data['矩陣比值_更新日期'])} />
+        <MarketShareChart data={getFilteredData(data['市場佔有率'])} />
+        <CustomerOrdersChart data={getFilteredData(data['客戶訂單狀態'])} />
+        <CustomerSatisfactionChart data={getFilteredData(data['客戶滿意度'])} />
       </div>
 
       <footer className="dashboard-footer">
-        <p>
-          {textConfig.footer.bookToBill}
-        </p>
+        <p>{textConfig.footer.market}</p>
       </footer>
     </div>
   );
 }
 
-export default BookToBill;
+export default MarketCustomer;

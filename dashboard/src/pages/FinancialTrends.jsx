@@ -11,7 +11,8 @@ import {
   Chart7,
   Chart8,
   Chart9
-} from '../components/Charts';
+} from '../components/FinancialCharts';
+import { textConfig } from '../config/textConfig';
 
 function FinancialTrends() {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ function FinancialTrends() {
   if (loading) {
     return (
       <div className="loading-container">
-        <h2>載入財務資料中...</h2>
+        <h2>{textConfig.pageHeaders.loadingFinancial}</h2>
       </div>
     );
   }
@@ -40,7 +41,7 @@ function FinancialTrends() {
   if (!data) {
     return (
       <div className="error-container">
-        <h2>無法載入資料</h2>
+        <h2>{textConfig.common.error}</h2>
       </div>
     );
   }
@@ -53,15 +54,15 @@ function FinancialTrends() {
   return (
     <div className="dashboard">
       <header className="dashboard-header">
-        <h1>財務趨勢儀表板</h1>
+        <h1>{textConfig.pageHeaders.financialTrends}</h1>
         <div className="year-selector">
-          <label>選擇年度：</label>
+          <label>{textConfig.yearSelector.label}</label>
           <select value={selectedYear} onChange={(e) => setSelectedYear(e.target.value)}>
-            <option value="all">全部 (2022-2025)</option>
-            <option value="2025">2025</option>
-            <option value="2024">2024</option>
-            <option value="2023">2023</option>
-            <option value="2022">2022</option>
+            <option value="all">{textConfig.yearSelector.all}</option>
+            <option value="2025">{textConfig.yearSelector.year2025}</option>
+            <option value="2024">{textConfig.yearSelector.year2024}</option>
+            <option value="2023">{textConfig.yearSelector.year2023}</option>
+            <option value="2022">{textConfig.yearSelector.year2022}</option>
           </select>
         </div>
       </header>
@@ -79,7 +80,7 @@ function FinancialTrends() {
       </div>
 
       <footer className="dashboard-footer">
-        <p>註：2025年10-12月為預測資料 | 金額單位：百萬新台幣 (M NTD) | 資料範圍：2022/01-2025/12</p>
+        <p>{textConfig.footer.financialTrends}</p>
       </footer>
     </div>
   );

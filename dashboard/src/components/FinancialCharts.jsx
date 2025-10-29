@@ -18,6 +18,7 @@ import { extractMonth, isForecast } from '../utils/dataParser';
 import { useResponsive } from '../hooks/useResponsive';
 import { CustomLegend } from './CustomLegend';
 import { legendConfig } from '../config/legendConfig';
+import { textConfig } from '../config/textConfig';
 
 // 數值格式化函數
 const formatMoney = (value) => {
@@ -261,9 +262,9 @@ const ChartContainer = ({ title, children, onClick }) => {
             className={`copy-button ${copied ? 'copied' : ''}`}
             onClick={handleCopy}
             disabled={copying}
-            title="複製圖表為圖片"
+            title={textConfig.common.copyChartTooltip}
           >
-            {copying ? '複製中...' : copied ? '✓ 已複製' : '📋 複製'}
+            {copying ? textConfig.common.copying : copied ? textConfig.common.copied : textConfig.common.copy}
           </button>
         )}
       </div>
@@ -302,7 +303,7 @@ export const Chart1 = ({ data, onClick }) => {
   const labelRenderer3 = useMemo(() => createBarLabelRenderer(chartData, formatMoney, 9), [chartData]);
 
   return (
-    <ChartContainer title="合併營收淨額與銷貨毛利率" onClick={onClick}>
+    <ChartContainer title={textConfig.financialCharts.chart1} onClick={onClick}>
       <ResponsiveContainer width="100%" aspect={2.5}>
         <ComposedChart data={chartData} margin={{ top: 8, right: 10, left: 10, bottom: 2 }} barCategoryGap="15%">
           <CartesianGrid strokeDasharray="3 3" />
@@ -369,7 +370,7 @@ export const Chart2 = ({ data, onClick }) => {
   const labelRenderer = useMemo(() => createBarLabelRenderer(chartData, formatMoney, 10), [chartData]);
 
   return (
-    <ChartContainer title="銷貨退回與折讓" onClick={onClick}>
+    <ChartContainer title={textConfig.financialCharts.chart2} onClick={onClick}>
       <ResponsiveContainer width="100%" aspect={2.5}>
         <ComposedChart data={chartData} margin={{ top: 8, right: 10, left: 10, bottom: 2 }} barCategoryGap="15%" barGap={0}>
           <CartesianGrid strokeDasharray="3 3" />
@@ -423,7 +424,7 @@ export const Chart3 = ({ data, onClick }) => {
   const labelRenderer = useMemo(() => createBarLabelRenderer(chartData, formatMoney, 10), [chartData]);
 
   return (
-    <ChartContainer title="營業毛利與營業毛利率" onClick={onClick}>
+    <ChartContainer title={textConfig.financialCharts.chart3} onClick={onClick}>
       <ResponsiveContainer width="100%" aspect={2.5}>
         <ComposedChart data={chartData} margin={{ top: 8, right: 10, left: 10, bottom: 2 }} barCategoryGap="15%">
           <CartesianGrid strokeDasharray="3 3" />
@@ -478,7 +479,7 @@ export const Chart4 = ({ data, onClick }) => {
   const labelRenderer = useMemo(() => createBarLabelRenderer(chartData, formatMoney, 10), [chartData]);
 
   return (
-    <ChartContainer title="存貨與跌價損失" onClick={onClick}>
+    <ChartContainer title={textConfig.financialCharts.chart4} onClick={onClick}>
       <ResponsiveContainer width="100%" aspect={2.5}>
         <ComposedChart data={chartData} margin={{ top: 8, right: 10, left: 10, bottom: 2 }} barCategoryGap="15%">
           <CartesianGrid strokeDasharray="3 3" />
@@ -530,7 +531,7 @@ export const Chart5 = ({ data, onClick }) => {
   const labelRenderer = useMemo(() => createBarLabelRenderer(chartData, formatMoney, 10), [chartData]);
 
   return (
-    <ChartContainer title="閒置產能損失" onClick={onClick}>
+    <ChartContainer title={textConfig.financialCharts.chart5} onClick={onClick}>
       <ResponsiveContainer width="100%" aspect={2.5}>
         <BarChart data={chartData} margin={{ top: 8, right: 10, left: 10, bottom: 2 }} barCategoryGap="15%">
           <CartesianGrid strokeDasharray="3 3" />
@@ -584,7 +585,7 @@ export const Chart6 = ({ data, onClick }) => {
   const labelRenderer3 = useMemo(() => createBarLabelRenderer(chartData, formatMoney, 9), [chartData]);
 
   return (
-    <ChartContainer title="營業費用與營業費用率" onClick={onClick}>
+    <ChartContainer title={textConfig.financialCharts.chart6} onClick={onClick}>
       <ResponsiveContainer width="100%" aspect={2.5}>
         <ComposedChart data={chartData} margin={{ top: 8, right: 10, left: 10, bottom: 2 }} barCategoryGap="15%">
           <CartesianGrid strokeDasharray="3 3" />
@@ -651,7 +652,7 @@ export const Chart7 = ({ data, onClick }) => {
   const labelRenderer = useMemo(() => createBarLabelRenderer(chartData, formatMoney, 10), [chartData]);
 
   return (
-    <ChartContainer title="營業利益與營業利益率" onClick={onClick}>
+    <ChartContainer title={textConfig.financialCharts.chart7} onClick={onClick}>
       <ResponsiveContainer width="100%" aspect={2.5}>
         <ComposedChart data={chartData} margin={{ top: 8, right: 10, left: 10, bottom: 2 }} barCategoryGap="15%">
           <CartesianGrid strokeDasharray="3 3" />
@@ -706,7 +707,7 @@ export const Chart8 = ({ data, onClick }) => {
   const labelRenderer = useMemo(() => createBarLabelRenderer(chartData, formatMoney, 10), [chartData]);
 
   return (
-    <ChartContainer title="EBITDA與EBITDA率" onClick={onClick}>
+    <ChartContainer title={textConfig.financialCharts.chart8} onClick={onClick}>
       <ResponsiveContainer width="100%" aspect={2.5}>
         <ComposedChart data={chartData} margin={{ top: 8, right: 10, left: 10, bottom: 2 }} barCategoryGap="15%">
           <CartesianGrid strokeDasharray="3 3" />
@@ -761,7 +762,7 @@ export const Chart9 = ({ data, onClick }) => {
   const labelRenderer = useMemo(() => createBarLabelRenderer(chartData, formatMoney, 10), [chartData]);
 
   return (
-    <ChartContainer title="稅後淨利與稅後淨利率" onClick={onClick}>
+    <ChartContainer title={textConfig.financialCharts.chart9} onClick={onClick}>
       <ResponsiveContainer width="100%" aspect={2.5}>
         <ComposedChart data={chartData} margin={{ top: 8, right: 10, left: 10, bottom: 2 }} barCategoryGap="15%">
           <CartesianGrid strokeDasharray="3 3" />

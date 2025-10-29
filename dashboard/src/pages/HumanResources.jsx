@@ -1,19 +1,22 @@
 import { useState, useEffect } from 'react';
-import { loadBookToBillData, filterByYear } from '../utils/bookToBillParser';
-import { BookToBillHeatmap } from '../components/HeatmapChart';
-import { ShipmentWithN6RatiosByDate } from '../components/BookToBillUpdateDateCharts';
+import { loadHRData, filterByYear } from '../utils/hrParser';
+import {
+  EmployeeRetentionChart,
+  KeyTalentRetentionChart,
+  EmployeePerformanceChart
+} from '../components/HRCharts';
 import { textConfig } from '../config/textConfig';
 
-function BookToBill() {
+function HumanResources() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [selectedYear, setSelectedYear] = useState('2025');
+  const [selectedYear, setSelectedYear] = useState('2024');
 
   useEffect(() => {
     async function fetchData() {
       setLoading(true);
-      const excelData = await loadBookToBillData();
-      setData(excelData);
+      const hrData = await loadHRData();
+      setData(hrData);
       setLoading(false);
     }
     fetchData();
@@ -22,7 +25,7 @@ function BookToBill() {
   if (loading) {
     return (
       <div className="loading-container">
-        <h2>{textConfig.pageHeaders.loadingBookToBill}</h2>
+        <h2>{textConfig.pageHeaders.loadingHR}</h2>
       </div>
     );
   }
@@ -35,7 +38,6 @@ function BookToBill() {
     );
   }
 
-  // 根據選擇的年度篩選資料
   const getFilteredData = (sheetData) => {
     return filterByYear(sheetData, selectedYear);
   };
@@ -43,7 +45,7 @@ function BookToBill() {
   return (
     <div className="dashboard">
       <header className="dashboard-header">
-        <h1>{textConfig.pageHeaders.bookToBill}</h1>
+        <h1>{textConfig.pageHeaders.hr}</h1>
         <div className="year-selector">
           <label>{textConfig.yearSelector.label}</label>
           <select value={selectedYear} onChange={(e) => setSelectedYear(e.target.value)}>
@@ -57,18 +59,16 @@ function BookToBill() {
       </header>
 
       <div className="dashboard-grid">
-        <BookToBillHeatmap data={getFilteredData(data['矩陣比值'])} />
-
-        <ShipmentWithN6RatiosByDate matrixDataWithDates={getFilteredData(data['矩陣比值_更新日期'])} />
+        <EmployeeRetentionChart data={getFilteredData(data['員工保留率'])} />
+        <KeyTalentRetentionChart data={getFilteredData(data['員工保留率'])} />
+        <EmployeePerformanceChart data={getFilteredData(data['員工績效指標'])} />
       </div>
 
       <footer className="dashboard-footer">
-        <p>
-          {textConfig.footer.bookToBill}
-        </p>
+        <p>{textConfig.footer.hr}</p>
       </footer>
     </div>
   );
 }
 
-export default BookToBill;
+export default HumanResources;

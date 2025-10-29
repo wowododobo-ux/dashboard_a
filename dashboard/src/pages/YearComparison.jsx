@@ -11,7 +11,7 @@ import {
   Chart7,
   Chart8,
   Chart9
-} from '../components/Charts';
+} from '../components/FinancialCharts';
 
 // 圖表配置映射
 const chartConfig = {
