@@ -17,6 +17,7 @@ import {
 } from 'recharts';
 import { useResponsive } from '../hooks/useResponsive';
 import { CustomLegend } from './CustomLegend';
+import { CustomXAxisTick } from './CustomXAxisTick';
 
 // 自訂Tooltip組件
 const CustomTooltip = ({ active, payload, label }) => {
@@ -79,28 +80,11 @@ const ChartContainer = ({ title, children }) => {
   );
 };
 
-// 自訂X軸標籤
-const CustomXAxisTick = ({ x, y, payload, angle = 0 }) => {
-  return (
-    <g transform={`translate(${x},${y})`}>
-      <text
-        x={0}
-        y={0}
-        dy={16}
-        textAnchor={angle !== 0 ? 'end' : 'middle'}
-        fill="#666"
-        fontSize={11}
-        transform={angle !== 0 ? `rotate(${angle})` : ''}
-      >
-        {payload.value}
-      </text>
-    </g>
-  );
-};
+// 注意：CustomXAxisTick 已從獨立組件導入，此處的定義已移除
 
 // 圖1: 新製程開發進度
 export function ProcessDevelopmentChart({ data }) {
-  const { isMobile } = useResponsive();
+  const { chartMargin, xAxisConfig, fontSize } = useResponsive();
   if (!data || data.length === 0) {
     return <ChartContainer title="新製程技術開發進度"><div style={{ padding: '20px', textAlign: 'center' }}>暫無資料</div></ChartContainer>;
   }
@@ -130,20 +114,29 @@ export function ProcessDevelopmentChart({ data }) {
 
   return (
     <ChartContainer title="新製程技術開發進度">
-      <ResponsiveContainer width="100%" aspect={2.5}>
+      <ResponsiveContainer width="100%" height={320}>
         <LineChart
           data={chartData}
-          margin={{ top: 8, right: 10, left: 10, bottom: 2 }}
+          margin={chartMargin}
         >
-          <CartesianGrid strokeDasharray="3 3" />
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
           <XAxis
             dataKey="quarter"
-            tick={<CustomXAxisTick angle={isMobile ? -45 : 0} />}
-            height={isMobile ? 60 : 40}
+            tick={<CustomXAxisTick />}
+            height={xAxisConfig.height}
+            interval={xAxisConfig.interval}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
           <YAxis
             domain={[0, 100]}
-            label={{ value: '完成進度 (%)', angle: -90, position: 'insideLeft' }}
+            label={{
+              value: '完成進度 (%)',
+              angle: -90,
+              position: 'insideLeft',
+              style: { fill: 'rgba(255, 255, 255, 0.7)', fontSize: fontSize.axis }
+            }}
+            tick={{ fontSize: fontSize.axis, fill: 'rgba(255, 255, 255, 0.7)' }}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
           <Tooltip content={<CustomTooltip />} wrapperStyle={{ zIndex: 9999 }} />
           <Legend content={<CustomLegend />} />
@@ -153,9 +146,9 @@ export function ProcessDevelopmentChart({ data }) {
               type="monotone"
               dataKey={project}
               stroke={colors[index % colors.length]}
-              strokeWidth={3}
-              dot={{ r: 4 }}
-              activeDot={{ r: 6 }}
+              strokeWidth={2.5}
+              dot={{ r: 3 }}
+              activeDot={{ r: 5 }}
               connectNulls
             />
           ))}
@@ -167,7 +160,7 @@ export function ProcessDevelopmentChart({ data }) {
 
 // 圖2: 專利申請與授權趨勢
 export function PatentTrendChart({ data }) {
-  const { isMobile } = useResponsive();
+  const { chartMargin, xAxisConfig, fontSize } = useResponsive();
   if (!data || data.length === 0) {
     return <ChartContainer title="專利申請與授權數量"><div style={{ padding: '20px', textAlign: 'center' }}>暫無資料</div></ChartContainer>;
   }
@@ -196,21 +189,40 @@ export function PatentTrendChart({ data }) {
 
   return (
     <ChartContainer title="專利申請與授權數量">
-      <ResponsiveContainer width="100%" aspect={2.5}>
+      <ResponsiveContainer width="100%" height={320}>
         <ComposedChart
           data={chartData}
-          margin={{ top: 8, right: 10, left: 10, bottom: 2 }}
+          margin={chartMargin}
         >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="year" />
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
+          <XAxis
+            dataKey="year"
+            tick={<CustomXAxisTick />}
+            height={xAxisConfig.height}
+            stroke="rgba(255, 255, 255, 0.3)"
+          />
           <YAxis
             yAxisId="left"
-            label={{ value: '年度數量', angle: -90, position: 'insideLeft' }}
+            label={{
+              value: '年度數量',
+              angle: -90,
+              position: 'insideLeft',
+              style: { fill: 'rgba(255, 255, 255, 0.7)', fontSize: fontSize.axis }
+            }}
+            tick={{ fontSize: fontSize.axis, fill: 'rgba(255, 255, 255, 0.7)' }}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
           <YAxis
             yAxisId="right"
             orientation="right"
-            label={{ value: '累計維持中', angle: 90, position: 'insideRight' }}
+            label={{
+              value: '累計維持中',
+              angle: 90,
+              position: 'insideRight',
+              style: { fill: 'rgba(255, 255, 255, 0.7)', fontSize: fontSize.axis }
+            }}
+            tick={{ fontSize: fontSize.axis, fill: 'rgba(255, 255, 255, 0.7)' }}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
           <Tooltip content={<CustomTooltip />} wrapperStyle={{ zIndex: 9999 }} />
           <Legend content={<CustomLegend />} />
@@ -221,8 +233,8 @@ export function PatentTrendChart({ data }) {
             type="monotone"
             dataKey="維持中總數"
             stroke="#ff8042"
-            strokeWidth={3}
-            dot={{ r: 5 }}
+            strokeWidth={2.5}
+            dot={{ r: 4 }}
           />
         </ComposedChart>
       </ResponsiveContainer>
@@ -232,28 +244,47 @@ export function PatentTrendChart({ data }) {
 
 // 圖3: 研發投入統計
 export function RDInvestmentChart({ data }) {
-  const { isMobile } = useResponsive();
+  const { chartMargin, xAxisConfig, fontSize } = useResponsive();
   if (!data || data.length === 0) {
     return <ChartContainer title="研發投入與人力配置"><div style={{ padding: '20px', textAlign: 'center' }}>暫無資料</div></ChartContainer>;
   }
 
   return (
     <ChartContainer title="研發投入與人力配置">
-      <ResponsiveContainer width="100%" aspect={2.5}>
+      <ResponsiveContainer width="100%" height={320}>
         <ComposedChart
           data={data}
-          margin={{ top: 8, right: 10, left: 10, bottom: 2 }}
+          margin={chartMargin}
         >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="年份" />
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
+          <XAxis
+            dataKey="年份"
+            tick={<CustomXAxisTick />}
+            height={xAxisConfig.height}
+            stroke="rgba(255, 255, 255, 0.3)"
+          />
           <YAxis
             yAxisId="left"
-            label={{ value: '研發支出 (M NTD)', angle: -90, position: 'insideLeft' }}
+            label={{
+              value: '研發支出 (M NTD)',
+              angle: -90,
+              position: 'insideLeft',
+              style: { fill: 'rgba(255, 255, 255, 0.7)', fontSize: fontSize.axis }
+            }}
+            tick={{ fontSize: fontSize.axis, fill: 'rgba(255, 255, 255, 0.7)' }}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
           <YAxis
             yAxisId="right"
             orientation="right"
-            label={{ value: '研發人員數', angle: 90, position: 'insideRight' }}
+            label={{
+              value: '研發人員數',
+              angle: 90,
+              position: 'insideRight',
+              style: { fill: 'rgba(255, 255, 255, 0.7)', fontSize: fontSize.axis }
+            }}
+            tick={{ fontSize: fontSize.axis, fill: 'rgba(255, 255, 255, 0.7)' }}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
           <Tooltip content={<CustomTooltip />} wrapperStyle={{ zIndex: 9999 }} />
           <Legend content={<CustomLegend />} />
@@ -263,8 +294,8 @@ export function RDInvestmentChart({ data }) {
             type="monotone"
             dataKey="研發人員總數"
             stroke="#82ca9d"
-            strokeWidth={3}
-            dot={{ r: 5 }}
+            strokeWidth={2.5}
+            dot={{ r: 4 }}
           />
           <Line
             yAxisId="right"
@@ -272,7 +303,7 @@ export function RDInvestmentChart({ data }) {
             dataKey="博士人數"
             stroke="#ffc658"
             strokeWidth={2}
-            dot={{ r: 4 }}
+            dot={{ r: 3 }}
           />
           <Line
             yAxisId="right"
@@ -280,7 +311,7 @@ export function RDInvestmentChart({ data }) {
             dataKey="碩士人數"
             stroke="#ff8042"
             strokeWidth={2}
-            dot={{ r: 4 }}
+            dot={{ r: 3 }}
           />
         </ComposedChart>
       </ResponsiveContainer>
@@ -290,7 +321,7 @@ export function RDInvestmentChart({ data }) {
 
 // 圖4: 各技術領域專利分布
 export function PatentFieldsChart({ data }) {
-  const { isMobile } = useResponsive();
+  const { chartMargin, xAxisConfig, fontSize } = useResponsive();
   if (!data || data.length === 0) {
     return <ChartContainer title="各技術領域專利分布"><div style={{ padding: '20px', textAlign: 'center' }}>暫無資料</div></ChartContainer>;
   }
@@ -320,15 +351,27 @@ export function PatentFieldsChart({ data }) {
 
   return (
     <ChartContainer title="各技術領域專利授權數量">
-      <ResponsiveContainer width="100%" aspect={2.5}>
+      <ResponsiveContainer width="100%" height={320}>
         <BarChart
           data={chartData}
-          margin={{ top: 8, right: 10, left: 10, bottom: 2 }}
+          margin={chartMargin}
         >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="year" />
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
+          <XAxis
+            dataKey="year"
+            tick={<CustomXAxisTick />}
+            height={xAxisConfig.height}
+            stroke="rgba(255, 255, 255, 0.3)"
+          />
           <YAxis
-            label={{ value: '授權數量', angle: -90, position: 'insideLeft' }}
+            label={{
+              value: '授權數量',
+              angle: -90,
+              position: 'insideLeft',
+              style: { fill: 'rgba(255, 255, 255, 0.7)', fontSize: fontSize.axis }
+            }}
+            tick={{ fontSize: fontSize.axis, fill: 'rgba(255, 255, 255, 0.7)' }}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
           <Tooltip content={<CustomTooltip />} wrapperStyle={{ zIndex: 9999 }} />
           <Legend content={<CustomLegend />} />

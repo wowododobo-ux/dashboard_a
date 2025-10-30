@@ -484,8 +484,8 @@ body {
 /* 平板 RWD */
 @media (max-width: 1024px) {
   .chart-container {
-    padding: 4px 8px !important;
-    min-height: 280px !important;
+    padding: 8px 12px !important;
+    min-height: 320px !important;
   }
 
   .chart-title {
@@ -506,9 +506,9 @@ body {
 /* 手機橫向 RWD */
 @media (max-width: 768px) {
   .chart-container {
-    padding: 3px 6px !important;
+    padding: 10px 12px !important;
     border-radius: 8px;
-    min-height: 260px !important;
+    min-height: 380px !important;
   }
 
   .chart-container:hover {
@@ -516,18 +516,18 @@ body {
   }
 
   .chart-header {
-    margin-bottom: 6px;
-    padding-bottom: 5px;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
   }
 
   .chart-title {
-    font-size: 14px !important;
+    font-size: 15px !important;
   }
 
   .copy-button {
-    padding: 4px 8px;
-    font-size: 10px;
-    gap: 2px;
+    padding: 6px 10px;
+    font-size: 11px;
+    gap: 3px;
   }
 
   .dashboard-footer {
@@ -545,26 +545,27 @@ body {
 /* 手機直向 RWD */
 @media (max-width: 480px) {
   .chart-container {
-    padding: 2px 5px !important;
-    min-height: 240px !important;
+    padding: 10px !important;
+    min-height: 400px !important;
   }
 
   .chart-header {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
   }
 
   .chart-title {
-    font-size: 13px !important;
+    font-size: 14px !important;
   }
 
   .copy-button {
-    padding: 3px 6px;
-    font-size: 9px;
+    padding: 6px 8px;
+    font-size: 10px;
   }
 
   .dashboard-footer {
-    padding: 6px 12px !important;
-    font-size: 11px !important;
+    padding: 10px 15px !important;
+    font-size: 12px !important;
   }
 
   .loading-container,
