@@ -516,7 +516,7 @@ export function WIPInventoryChart({ data }) {
 
 // 圖6: 生產排程達成率
 export function ProductionScheduleChart({ data, groupBy = 'overall', selectedValue = 'all' }) {
-  const { isMobile } = useResponsive();
+  const { chartMargin, xAxisConfig, fontSize } = useResponsive();
 
   if (!data || data.length === 0) {
     return (
@@ -643,17 +643,18 @@ export function ProductionScheduleChart({ data, groupBy = 'overall', selectedVal
         </div>
       )}
 
-      <ResponsiveContainer width="100%" aspect={isMobile ? 1.5 : 2.5}>
+      <ResponsiveContainer width="100%" height={320}>
         <ComposedChart
           data={displayData}
-          margin={{ top: 8, right: 15, left: 5, bottom: 2 }}
+          margin={chartMargin}
         >
-          <CartesianGrid strokeDasharray="3 3" />
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
           <XAxis
             dataKey="週次"
-            tick={<CustomXAxisTick angle={-45} />}
-            height={60}
-            interval="preserveStartEnd"
+            tick={<CustomXAxisTick angle={xAxisConfig.angle} />}
+            height={xAxisConfig.height}
+            interval={xAxisConfig.interval}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
           <YAxis
             yAxisId="left"
@@ -661,8 +662,10 @@ export function ProductionScheduleChart({ data, groupBy = 'overall', selectedVal
               value: '產量 (片)',
               angle: -90,
               position: 'insideLeft',
-              style: { fill: 'rgba(255,255,255,0.7)', fontSize: 12 }
+              style: { fill: 'rgba(255,255,255,0.7)', fontSize: fontSize.axis }
             }}
+            tick={{ fontSize: fontSize.axis, fill: 'rgba(255, 255, 255, 0.7)' }}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
           <YAxis
             yAxisId="right"
@@ -671,15 +674,14 @@ export function ProductionScheduleChart({ data, groupBy = 'overall', selectedVal
               value: '達成率 (%)',
               angle: 90,
               position: 'insideRight',
-              style: { fill: 'rgba(255,255,255,0.7)', fontSize: 12 }
+              style: { fill: 'rgba(255,255,255,0.7)', fontSize: fontSize.axis }
             }}
+            tick={{ fontSize: fontSize.axis, fill: 'rgba(255, 255, 255, 0.7)' }}
             domain={[80, 110]}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
           <Tooltip content={<CustomTooltip />} />
-          <Legend
-            wrapperStyle={{ fontSize: isMobile ? '11px' : '13px' }}
-            content={<CustomLegend />}
-          />
+          <Legend content={<CustomLegend />} />
           <Bar
             yAxisId="left"
             dataKey="計畫產量"
@@ -723,7 +725,7 @@ export function ProductionScheduleChart({ data, groupBy = 'overall', selectedVal
 
 // 圖7: 產品別良率分析 - 分組長條圖
 export function ProductYieldByAreaChart({ data, month }) {
-  const { isMobile } = useResponsive();
+  const { chartMargin, xAxisConfig, fontSize } = useResponsive();
 
   if (!data || data.length === 0) {
     return (
@@ -745,30 +747,30 @@ export function ProductYieldByAreaChart({ data, month }) {
 
   return (
     <ChartContainer title={`產品別良率分析 - 按生產區域 (${month || '最新月份'})`}>
-      <ResponsiveContainer width="100%" aspect={isMobile ? 1.5 : 2.5}>
+      <ResponsiveContainer width="100%" height={320}>
         <BarChart
           data={data}
-          margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+          margin={chartMargin}
         >
-          <CartesianGrid strokeDasharray="3 3" />
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
           <XAxis
             dataKey="生產區域"
-            tick={{ fontSize: isMobile ? 11 : 13 }}
+            tick={{ fontSize: fontSize.axis, fill: 'rgba(255, 255, 255, 0.7)' }}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
           <YAxis
             label={{
               value: '良率 (%)',
               angle: -90,
               position: 'insideLeft',
-              style: { fill: 'rgba(255,255,255,0.7)', fontSize: 12 }
+              style: { fill: 'rgba(255,255,255,0.7)', fontSize: fontSize.axis }
             }}
+            tick={{ fontSize: fontSize.axis, fill: 'rgba(255, 255, 255, 0.7)' }}
             domain={[85, 100]}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
           <Tooltip content={<CustomTooltip />} />
-          <Legend
-            wrapperStyle={{ fontSize: isMobile ? '11px' : '13px' }}
-            content={<CustomLegend />}
-          />
+          <Legend content={<CustomLegend />} />
           {productLines.map((line) => (
             <Bar
               key={line}
