@@ -207,8 +207,9 @@ const CustomXAxisTick = ({ x, y, payload, chartData, angle = 0, isMobile = false
         y={0}
         dy={16}
         textAnchor={isMobile && angle !== 0 ? 'end' : 'middle'}
-        fill="#666"
+        fill="rgba(255, 255, 255, 0.7)"
         fontSize={11}
+        fontWeight="500"
         transform={angle !== 0 ? `rotate(${angle})` : ''}
       >
         {payload.value}
@@ -252,7 +253,7 @@ const createBarLabelRenderer = (chartData, formatter, fontSize = 9) => {
 
 // 圖1: 產品別銷售分析
 export function ProductSalesChart({ data }) {
-  const { isMobile } = useResponsive();
+  const { chartMargin, xAxisConfig, fontSize, isMobile } = useResponsive();
   const products = useMemo(
     () => [...new Set(data.map((item) => item['產品']))],
     [data]
@@ -289,20 +290,22 @@ export function ProductSalesChart({ data }) {
 
   return (
     <ChartContainer title="產品別銷售分析">
-      <ResponsiveContainer width="100%" aspect={2.5}>
+      <ResponsiveContainer width="100%" height={320}>
         <ComposedChart
           data={chartData}
-          margin={{ top: 8, right: 10, left: 10, bottom: 2 }}
+          margin={chartMargin}
           barCategoryGap="15%"
         >
-          <CartesianGrid strokeDasharray="3 3" />
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
           <XAxis
             dataKey="month"
-            tick={<CustomXAxisTick chartData={chartData} angle={isMobile ? -45 : 0} isMobile={isMobile} />}
-            height={isMobile ? 60 : 40}
+            tick={<CustomXAxisTick chartData={chartData} angle={xAxisConfig.angle} isMobile={isMobile} />}
+            height={xAxisConfig.height}
+            interval={xAxisConfig.interval}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
-          <YAxis yAxisId="left" tick={false} width={0} domain={[0, (dataMax) => dataMax * 1.2]} />
-          <YAxis yAxisId="right" tick={false} width={0} domain={[0, (dataMax) => dataMax * 1.2]} />
+          <YAxis yAxisId="left" tick={false} width={0} domain={[0, (dataMax) => dataMax * 1.2]} stroke="rgba(255, 255, 255, 0.3)" />
+          <YAxis yAxisId="right" tick={false} width={0} domain={[0, (dataMax) => dataMax * 1.2]} stroke="rgba(255, 255, 255, 0.3)" />
           <Tooltip content={<CustomTooltip />} wrapperStyle={{ zIndex: 9999 }} />
           <Legend content={<CustomLegend />} />
           {products.map((product, index) => (
@@ -352,7 +355,7 @@ export function ProductSalesChart({ data }) {
 
 // 圖2: 客戶別銷售分析
 export function CustomerSalesChart({ data }) {
-  const { isMobile } = useResponsive();
+  const { chartMargin, xAxisConfig, fontSize, isMobile } = useResponsive();
   const customers = useMemo(
     () => [...new Set(data.map((item) => item['客戶']))],
     [data]
@@ -389,20 +392,22 @@ export function CustomerSalesChart({ data }) {
 
   return (
     <ChartContainer title="客戶別銷售分析">
-      <ResponsiveContainer width="100%" aspect={2.5}>
+      <ResponsiveContainer width="100%" height={320}>
         <ComposedChart
           data={chartData}
-          margin={{ top: 8, right: 10, left: 10, bottom: 2 }}
+          margin={chartMargin}
           barCategoryGap="15%"
         >
-          <CartesianGrid strokeDasharray="3 3" />
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
           <XAxis
             dataKey="month"
-            tick={<CustomXAxisTick chartData={chartData} angle={isMobile ? -45 : 0} isMobile={isMobile} />}
-            height={isMobile ? 60 : 40}
+            tick={<CustomXAxisTick chartData={chartData} angle={xAxisConfig.angle} isMobile={isMobile} />}
+            height={xAxisConfig.height}
+            interval={xAxisConfig.interval}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
-          <YAxis yAxisId="left" tick={false} width={0} domain={[0, (dataMax) => dataMax * 1.2]} />
-          <YAxis yAxisId="right" tick={false} width={0} domain={[0, (dataMax) => dataMax * 1.2]} />
+          <YAxis yAxisId="left" tick={false} width={0} domain={[0, (dataMax) => dataMax * 1.2]} stroke="rgba(255, 255, 255, 0.3)" />
+          <YAxis yAxisId="right" tick={false} width={0} domain={[0, (dataMax) => dataMax * 1.2]} stroke="rgba(255, 255, 255, 0.3)" />
           <Tooltip content={<CustomTooltip />} wrapperStyle={{ zIndex: 9999 }} />
           <Legend content={<CustomLegend />} />
           {customers.map((customer, index) => (
@@ -452,7 +457,7 @@ export function CustomerSalesChart({ data }) {
 
 // 圖3: 產品毛利貢獻
 export function ProductProfitContributionChart({ data }) {
-  const { isMobile } = useResponsive();
+  const { chartMargin, xAxisConfig, fontSize, isMobile } = useResponsive();
   const products = useMemo(
     () => [...new Set(data.map((item) => item['產品']))],
     [data]
@@ -487,19 +492,21 @@ export function ProductProfitContributionChart({ data }) {
 
   return (
     <ChartContainer title="產品毛利貢獻分析">
-      <ResponsiveContainer width="100%" aspect={2.5}>
+      <ResponsiveContainer width="100%" height={320}>
         <BarChart
           data={chartData}
-          margin={{ top: 8, right: 10, left: 10, bottom: 2 }}
+          margin={chartMargin}
           barCategoryGap="15%"
         >
-          <CartesianGrid strokeDasharray="3 3" />
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
           <XAxis
             dataKey="month"
-            tick={<CustomXAxisTick chartData={chartData} angle={isMobile ? -45 : 0} isMobile={isMobile} />}
-            height={isMobile ? 60 : 40}
+            tick={<CustomXAxisTick chartData={chartData} angle={xAxisConfig.angle} isMobile={isMobile} />}
+            height={xAxisConfig.height}
+            interval={xAxisConfig.interval}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
-          <YAxis tick={false} width={0} domain={[0, (dataMax) => dataMax * 1.2]} />
+          <YAxis tick={false} width={0} domain={[0, (dataMax) => dataMax * 1.2]} stroke="rgba(255, 255, 255, 0.3)" />
           <Tooltip content={<CustomTooltip />} wrapperStyle={{ zIndex: 9999 }} />
           <Legend content={<CustomLegend />} />
           {products.map((product, index) => (
@@ -524,7 +531,7 @@ export function ProductProfitContributionChart({ data }) {
 
 // 圖4: 客戶分級分析
 export function CustomerABCChart({ data }) {
-  const { isMobile } = useResponsive();
+  const { chartMargin, xAxisConfig, fontSize, isMobile } = useResponsive();
   const customers = useMemo(
     () => [...new Set(data.map((item) => item['客戶']))],
     [data]
@@ -574,19 +581,21 @@ export function CustomerABCChart({ data }) {
 
   return (
     <ChartContainer title="客戶分級分析 (ABC分類)">
-      <ResponsiveContainer width="100%" aspect={2.5}>
+      <ResponsiveContainer width="100%" height={320}>
         <BarChart
           data={chartData}
-          margin={{ top: 8, right: 10, left: 10, bottom: 2 }}
+          margin={chartMargin}
           barCategoryGap="15%"
         >
-          <CartesianGrid strokeDasharray="3 3" />
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
           <XAxis
             dataKey="month"
-            tick={<CustomXAxisTick chartData={chartData} angle={isMobile ? -45 : 0} isMobile={isMobile} />}
-            height={isMobile ? 60 : 40}
+            tick={<CustomXAxisTick chartData={chartData} angle={xAxisConfig.angle} isMobile={isMobile} />}
+            height={xAxisConfig.height}
+            interval={xAxisConfig.interval}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
-          <YAxis tick={false} width={0} domain={[0, (dataMax) => dataMax * 1.2]} />
+          <YAxis tick={false} width={0} domain={[0, (dataMax) => dataMax * 1.2]} stroke="rgba(255, 255, 255, 0.3)" />
           <Tooltip content={<CustomTooltip />} wrapperStyle={{ zIndex: 9999 }} />
           <Legend content={<CustomLegend />} />
           {customers.map((customer, index) => (
@@ -611,7 +620,7 @@ export function CustomerABCChart({ data }) {
 
 // 圖5: 產品組合分析
 export function ProductMixChart({ data }) {
-  const { isMobile } = useResponsive();
+  const { chartMargin, xAxisConfig, fontSize, isMobile } = useResponsive();
   const chartData = useMemo(() => {
     return data.map((item) => {
       const month = item['月份'];
@@ -636,20 +645,22 @@ export function ProductMixChart({ data }) {
 
   return (
     <ChartContainer title="產品組合分析">
-      <ResponsiveContainer width="100%" aspect={2.5}>
+      <ResponsiveContainer width="100%" height={320}>
         <ComposedChart
           data={chartData}
-          margin={{ top: 8, right: 10, left: 10, bottom: 2 }}
+          margin={chartMargin}
           barCategoryGap="15%"
         >
-          <CartesianGrid strokeDasharray="3 3" />
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
           <XAxis
             dataKey="month"
-            tick={<CustomXAxisTick chartData={chartData} angle={isMobile ? -45 : 0} isMobile={isMobile} />}
-            height={isMobile ? 60 : 40}
+            tick={<CustomXAxisTick chartData={chartData} angle={xAxisConfig.angle} isMobile={isMobile} />}
+            height={xAxisConfig.height}
+            interval={xAxisConfig.interval}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
-          <YAxis yAxisId="left" tick={false} width={0} domain={[0, (dataMax) => dataMax * 1.2]} />
-          <YAxis yAxisId="right" tick={false} width={0} domain={[0, (dataMax) => dataMax * 1.2]} />
+          <YAxis yAxisId="left" tick={false} width={0} domain={[0, (dataMax) => dataMax * 1.2]} stroke="rgba(255, 255, 255, 0.3)" />
+          <YAxis yAxisId="right" tick={false} width={0} domain={[0, (dataMax) => dataMax * 1.2]} stroke="rgba(255, 255, 255, 0.3)" />
           <Tooltip content={<CustomTooltip />} wrapperStyle={{ zIndex: 9999 }} />
           <Legend content={<CustomLegend />} />
           <Bar
@@ -760,7 +771,7 @@ export function ProductBCGChart({ data }) {
         x={cx}
         y={cy - 10}
         textAnchor="middle"
-        fill="#666"
+        fill="rgba(255, 255, 255, 0.9)"
         fontSize={10}
         fontWeight="bold"
       >
@@ -843,20 +854,21 @@ export function ProductBCGChart({ data }) {
 
   return (
     <ChartContainer title="BCG產品矩陣分析">
-      <ResponsiveContainer width="100%" aspect={2.5}>
+      <ResponsiveContainer width="100%" height={320}>
         <ScatterChart margin={{ top: 20, right: 30, left: 50, bottom: 30 }}>
-          <CartesianGrid strokeDasharray="2 1" />
+          <CartesianGrid strokeDasharray="2 1" stroke="rgba(255, 255, 255, 0.1)" />
           <XAxis
             type="number"
             dataKey="revenue"
             name="營收"
             unit=" M"
-            tick={{ fontSize: 11 }}
+            tick={{ fontSize: 11, fill: 'rgba(255, 255, 255, 0.7)' }}
+            stroke="rgba(255, 255, 255, 0.3)"
             label={{
               value: '營收 (M NTD)',
               position: 'insideBottom',
               offset: -10,
-              style: { fontSize: 12, fontWeight: 'bold' },
+              style: { fontSize: 12, fontWeight: 'bold', fill: 'rgba(255, 255, 255, 0.7)' },
             }}
           />
           <YAxis
@@ -864,13 +876,14 @@ export function ProductBCGChart({ data }) {
             dataKey="grossMarginRate"
             name="毛利率"
             unit="%"
-            tick={{ fontSize: 11 }}
+            tick={{ fontSize: 11, fill: 'rgba(255, 255, 255, 0.7)' }}
+            stroke="rgba(255, 255, 255, 0.3)"
             label={{
               value: '毛利率 (%)',
               angle: -90,
               position: 'insideLeft',
               offset: 10,
-              style: { fontSize: 12, fontWeight: 'bold' },
+              style: { fontSize: 12, fontWeight: 'bold', fill: 'rgba(255, 255, 255, 0.7)' },
             }}
           />
           <ZAxis type="number" dataKey="grossProfit" range={[100, 1000]} name="毛利額" />
