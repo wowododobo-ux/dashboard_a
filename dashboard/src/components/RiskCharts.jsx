@@ -30,11 +30,11 @@ const CustomTooltip = ({ active, payload, label }) => {
 };
 
 const ChartContainer = ({ title, children }) => (<div className="chart-container"><div className="chart-header"><h3 className="chart-title">{title}</h3></div>{children}</div>);
-const CustomXAxisTick = ({ x, y, payload, angle = 0 }) => (<g transform={`translate(${x},${y})`}><text x={0} y={0} dy={16} textAnchor={angle !== 0 ? 'end' : 'middle'} fill="#666" fontSize={11} transform={angle !== 0 ? `rotate(${angle})` : ''}>{payload.value}</text></g>);
+const CustomXAxisTick = ({ x, y, payload, angle = 0 }) => (<g transform={`translate(${x},${y})`}><text x={0} y={0} dy={16} textAnchor={angle !== 0 ? 'end' : 'middle'} fill="rgba(255, 255, 255, 0.7)" fontSize={11} fontWeight="500" transform={angle !== 0 ? `rotate(${angle})` : ''}>{payload.value}</text></g>);
 
 // 圖1: 營運風險等級統計
 export function RiskLevelChart({ data }) {
-  const { isMobile } = useResponsive();
+  const { chartMargin, xAxisConfig, fontSize } = useResponsive();
   if (!data || data.length === 0) return <ChartContainer title="營運風險等級統計"><div style={{ padding: '20px', textAlign: 'center' }}>暫無資料</div></ChartContainer>;
   const chartData = useMemo(() => {
     const monthMap = {};
@@ -48,11 +48,21 @@ export function RiskLevelChart({ data }) {
   }, [data]);
   return (
     <ChartContainer title="營運風險等級統計">
-      <ResponsiveContainer width="100%" aspect={2.5}>
-        <BarChart data={chartData} margin={{ top: 8, right: 10, left: 10, bottom: 2 }}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="month" tick={<CustomXAxisTick angle={isMobile ? -45 : 0} />} height={isMobile ? 60 : 40} />
-          <YAxis label={{ value: '風險數量', angle: -90, position: 'insideLeft' }} />
+      <ResponsiveContainer width="100%" height={320}>
+        <BarChart data={chartData} margin={chartMargin}>
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
+          <XAxis
+            dataKey="month"
+            tick={<CustomXAxisTick angle={xAxisConfig.angle} />}
+            height={xAxisConfig.height}
+            interval={xAxisConfig.interval}
+            stroke="rgba(255, 255, 255, 0.3)"
+          />
+          <YAxis
+            label={{ value: '風險數量', angle: -90, position: 'insideLeft', style: { fill: 'rgba(255, 255, 255, 0.7)', fontSize: fontSize.axis } }}
+            tick={{ fontSize: fontSize.axis, fill: 'rgba(255, 255, 255, 0.7)' }}
+            stroke="rgba(255, 255, 255, 0.3)"
+          />
           <Tooltip content={<CustomTooltip />} wrapperStyle={{ zIndex: 9999 }} />
           <Legend content={<CustomLegend />} />
           <Bar dataKey="低" stackId="a" fill="#82ca9d" />
@@ -67,7 +77,7 @@ export function RiskLevelChart({ data }) {
 
 // 圖2: EHS績效達成率
 export function EHSPerformanceChart({ data }) {
-  const { isMobile } = useResponsive();
+  const { chartMargin, xAxisConfig, fontSize } = useResponsive();
   if (!data || data.length === 0) return <ChartContainer title="EHS績效達成率趨勢"><div style={{ padding: '20px', textAlign: 'center' }}>暫無資料</div></ChartContainer>;
   const chartData = useMemo(() => {
     const monthMap = {};
@@ -83,14 +93,25 @@ export function EHSPerformanceChart({ data }) {
   }, [data]);
   return (
     <ChartContainer title="EHS績效達成率趨勢">
-      <ResponsiveContainer width="100%" aspect={2.5}>
-        <LineChart data={chartData} margin={{ top: 8, right: 10, left: 10, bottom: 2 }}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="month" tick={<CustomXAxisTick angle={isMobile ? -45 : 0} />} height={isMobile ? 60 : 40} />
-          <YAxis domain={[85, 105]} label={{ value: '達成率 (%)', angle: -90, position: 'insideLeft' }} />
+      <ResponsiveContainer width="100%" height={320}>
+        <LineChart data={chartData} margin={chartMargin}>
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
+          <XAxis
+            dataKey="month"
+            tick={<CustomXAxisTick angle={xAxisConfig.angle} />}
+            height={xAxisConfig.height}
+            interval={xAxisConfig.interval}
+            stroke="rgba(255, 255, 255, 0.3)"
+          />
+          <YAxis
+            domain={[85, 105]}
+            label={{ value: '達成率 (%)', angle: -90, position: 'insideLeft', style: { fill: 'rgba(255, 255, 255, 0.7)', fontSize: fontSize.axis } }}
+            tick={{ fontSize: fontSize.axis, fill: 'rgba(255, 255, 255, 0.7)' }}
+            stroke="rgba(255, 255, 255, 0.3)"
+          />
           <Tooltip content={<CustomTooltip />} wrapperStyle={{ zIndex: 9999 }} />
           <Legend content={<CustomLegend />} />
-          <Line type="monotone" dataKey="avgAchievement" name="平均達成率(%)" stroke="#82ca9d" strokeWidth={3} dot={{ r: 4 }} activeDot={{ r: 6 }} />
+          <Line type="monotone" dataKey="avgAchievement" name="平均達成率(%)" stroke="#82ca9d" strokeWidth={2.5} dot={{ r: 3 }} activeDot={{ r: 5 }} />
         </LineChart>
       </ResponsiveContainer>
     </ChartContainer>
@@ -99,7 +120,7 @@ export function EHSPerformanceChart({ data }) {
 
 // 圖3: 事故數量統計
 export function AccidentStatsChart({ data }) {
-  const { isMobile } = useResponsive();
+  const { chartMargin, xAxisConfig, fontSize } = useResponsive();
   if (!data || data.length === 0) return <ChartContainer title="月度事故數量統計"><div style={{ padding: '20px', textAlign: 'center' }}>暫無資料</div></ChartContainer>;
   const chartData = useMemo(() => {
     const monthMap = {};
@@ -112,11 +133,21 @@ export function AccidentStatsChart({ data }) {
   }, [data]);
   return (
     <ChartContainer title="月度事故數量統計">
-      <ResponsiveContainer width="100%" aspect={2.5}>
-        <BarChart data={chartData} margin={{ top: 8, right: 10, left: 10, bottom: 2 }}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="month" tick={<CustomXAxisTick angle={isMobile ? -45 : 0} />} height={isMobile ? 60 : 40} />
-          <YAxis label={{ value: '事故數量', angle: -90, position: 'insideLeft' }} />
+      <ResponsiveContainer width="100%" height={320}>
+        <BarChart data={chartData} margin={chartMargin}>
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
+          <XAxis
+            dataKey="month"
+            tick={<CustomXAxisTick angle={xAxisConfig.angle} />}
+            height={xAxisConfig.height}
+            interval={xAxisConfig.interval}
+            stroke="rgba(255, 255, 255, 0.3)"
+          />
+          <YAxis
+            label={{ value: '事故數量', angle: -90, position: 'insideLeft', style: { fill: 'rgba(255, 255, 255, 0.7)', fontSize: fontSize.axis } }}
+            tick={{ fontSize: fontSize.axis, fill: 'rgba(255, 255, 255, 0.7)' }}
+            stroke="rgba(255, 255, 255, 0.3)"
+          />
           <Tooltip content={<CustomTooltip />} wrapperStyle={{ zIndex: 9999 }} />
           <Legend content={<CustomLegend />} />
           <Bar dataKey="accidentCount" name="事故數量" fill="#ff8042">

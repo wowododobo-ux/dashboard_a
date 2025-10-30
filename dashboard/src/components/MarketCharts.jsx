@@ -117,8 +117,9 @@ const CustomXAxisTick = ({ x, y, payload, angle = 0 }) => {
         y={0}
         dy={16}
         textAnchor={angle !== 0 ? 'end' : 'middle'}
-        fill="#666"
+        fill="rgba(255, 255, 255, 0.7)"
         fontSize={11}
+        fontWeight="500"
         transform={angle !== 0 ? `rotate(${angle})` : ''}
       >
         {payload.value}
@@ -129,7 +130,7 @@ const CustomXAxisTick = ({ x, y, payload, angle = 0 }) => {
 
 // 圖1: 市場佔有率（按地區）
 export function MarketShareChart({ data }) {
-  const { isMobile } = useResponsive();
+  const { chartMargin, xAxisConfig, fontSize } = useResponsive();
 
   const regions = useMemo(
     () => {
@@ -182,19 +183,23 @@ export function MarketShareChart({ data }) {
 
   return (
     <ChartContainer title="市場佔有率（按地區）">
-      <ResponsiveContainer width="100%" aspect={2.5}>
+      <ResponsiveContainer width="100%" height={320}>
         <BarChart
           data={chartData}
-          margin={{ top: 8, right: 10, left: 10, bottom: 2 }}
+          margin={chartMargin}
         >
-          <CartesianGrid strokeDasharray="3 3" />
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
           <XAxis
             dataKey="month"
-            tick={<CustomXAxisTick angle={isMobile ? -45 : 0} />}
-            height={isMobile ? 60 : 40}
+            tick={<CustomXAxisTick angle={xAxisConfig.angle} />}
+            height={xAxisConfig.height}
+            interval={xAxisConfig.interval}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
           <YAxis
-            label={{ value: '市佔率 (%)', angle: -90, position: 'insideLeft' }}
+            label={{ value: '市佔率 (%)', angle: -90, position: 'insideLeft', style: { fill: 'rgba(255, 255, 255, 0.7)', fontSize: fontSize.axis } }}
+            tick={{ fontSize: fontSize.axis, fill: 'rgba(255, 255, 255, 0.7)' }}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
           <Tooltip content={<CustomTooltip />} wrapperStyle={{ zIndex: 9999 }} />
           <Legend content={<CustomLegend />} />
@@ -218,7 +223,7 @@ export function MarketShareChart({ data }) {
 
 // 圖2: 客戶訂單金額趨勢
 export function CustomerOrdersChart({ data }) {
-  const { isMobile } = useResponsive();
+  const { chartMargin, xAxisConfig, fontSize } = useResponsive();
 
   const customers = useMemo(
     () => {
@@ -257,19 +262,23 @@ export function CustomerOrdersChart({ data }) {
 
   return (
     <ChartContainer title="客戶訂單金額趨勢">
-      <ResponsiveContainer width="100%" aspect={2.5}>
+      <ResponsiveContainer width="100%" height={320}>
         <BarChart
           data={chartData}
-          margin={{ top: 8, right: 10, left: 10, bottom: 2 }}
+          margin={chartMargin}
         >
-          <CartesianGrid strokeDasharray="3 3" />
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
           <XAxis
             dataKey="month"
-            tick={<CustomXAxisTick angle={isMobile ? -45 : 0} />}
-            height={isMobile ? 60 : 40}
+            tick={<CustomXAxisTick angle={xAxisConfig.angle} />}
+            height={xAxisConfig.height}
+            interval={xAxisConfig.interval}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
           <YAxis
-            label={{ value: '訂單金額 (M USD)', angle: -90, position: 'insideLeft' }}
+            label={{ value: '訂單金額 (M USD)', angle: -90, position: 'insideLeft', style: { fill: 'rgba(255, 255, 255, 0.7)', fontSize: fontSize.axis } }}
+            tick={{ fontSize: fontSize.axis, fill: 'rgba(255, 255, 255, 0.7)' }}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
           <Tooltip content={<CustomTooltip />} wrapperStyle={{ zIndex: 9999 }} />
           <Legend content={<CustomLegend />} />
@@ -293,7 +302,7 @@ export function CustomerOrdersChart({ data }) {
 
 // 圖3: 客戶滿意度指標
 export function CustomerSatisfactionChart({ data }) {
-  const { isMobile } = useResponsive();
+  const { chartMargin, xAxisConfig, fontSize } = useResponsive();
 
   const chartData = useMemo(() => {
     if (!data || data.length === 0) return [];
@@ -343,20 +352,24 @@ export function CustomerSatisfactionChart({ data }) {
 
   return (
     <ChartContainer title="客戶滿意度指標">
-      <ResponsiveContainer width="100%" aspect={2.5}>
+      <ResponsiveContainer width="100%" height={320}>
         <LineChart
           data={chartData}
-          margin={{ top: 8, right: 10, left: 10, bottom: 2 }}
+          margin={chartMargin}
         >
-          <CartesianGrid strokeDasharray="3 3" />
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
           <XAxis
             dataKey="month"
-            tick={<CustomXAxisTick angle={isMobile ? -45 : 0} />}
-            height={isMobile ? 60 : 40}
+            tick={<CustomXAxisTick angle={xAxisConfig.angle} />}
+            height={xAxisConfig.height}
+            interval={xAxisConfig.interval}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
           <YAxis
             domain={[70, 100]}
-            label={{ value: '滿意度分數', angle: -90, position: 'insideLeft' }}
+            label={{ value: '滿意度分數', angle: -90, position: 'insideLeft', style: { fill: 'rgba(255, 255, 255, 0.7)', fontSize: fontSize.axis } }}
+            tick={{ fontSize: fontSize.axis, fill: 'rgba(255, 255, 255, 0.7)' }}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
           <Tooltip content={<CustomTooltip />} wrapperStyle={{ zIndex: 9999 }} />
           <Legend content={<CustomLegend />} />
@@ -364,36 +377,36 @@ export function CustomerSatisfactionChart({ data }) {
             type="monotone"
             dataKey="整體滿意度"
             stroke="#8884d8"
-            strokeWidth={3}
-            dot={{ r: 4 }}
+            strokeWidth={2.5}
+            dot={{ r: 3 }}
           />
           <Line
             type="monotone"
             dataKey="產品質量"
             stroke="#82ca9d"
             strokeWidth={2}
-            dot={{ r: 3 }}
+            dot={{ r: 2.5 }}
           />
           <Line
             type="monotone"
             dataKey="交貨準時"
             stroke="#ffc658"
             strokeWidth={2}
-            dot={{ r: 3 }}
+            dot={{ r: 2.5 }}
           />
           <Line
             type="monotone"
             dataKey="技術支持"
             stroke="#ff8042"
             strokeWidth={2}
-            dot={{ r: 3 }}
+            dot={{ r: 2.5 }}
           />
           <Line
             type="monotone"
             dataKey="價格競爭力"
             stroke="#a4de6c"
             strokeWidth={2}
-            dot={{ r: 3 }}
+            dot={{ r: 2.5 }}
           />
         </LineChart>
       </ResponsiveContainer>

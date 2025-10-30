@@ -117,8 +117,9 @@ const CustomXAxisTick = ({ x, y, payload, angle = 0 }) => {
         y={0}
         dy={16}
         textAnchor={angle !== 0 ? 'end' : 'middle'}
-        fill="#666"
+        fill="rgba(255, 255, 255, 0.7)"
         fontSize={11}
+        fontWeight="500"
         transform={angle !== 0 ? `rotate(${angle})` : ''}
       >
         {payload.value}
@@ -129,7 +130,7 @@ const CustomXAxisTick = ({ x, y, payload, angle = 0 }) => {
 
 // 圖1: 關鍵材料庫存天數
 export function MaterialInventoryChart({ data }) {
-  const { isMobile } = useResponsive();
+  const { chartMargin, xAxisConfig, fontSize } = useResponsive();
   if (!data || data.length === 0) return <ChartContainer title="關鍵材料庫存天數"><div style={{ padding: '20px', textAlign: 'center' }}>暫無資料</div></ChartContainer>;
 
   const materials = useMemo(
@@ -157,19 +158,23 @@ export function MaterialInventoryChart({ data }) {
 
   return (
     <ChartContainer title="關鍵材料庫存天數">
-      <ResponsiveContainer width="100%" aspect={2.5}>
+      <ResponsiveContainer width="100%" height={320}>
         <LineChart
           data={chartData}
-          margin={{ top: 8, right: 10, left: 10, bottom: 2 }}
+          margin={chartMargin}
         >
-          <CartesianGrid strokeDasharray="3 3" />
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
           <XAxis
             dataKey="month"
-            tick={<CustomXAxisTick angle={isMobile ? -45 : 0} />}
-            height={isMobile ? 60 : 40}
+            tick={<CustomXAxisTick angle={xAxisConfig.angle} />}
+            height={xAxisConfig.height}
+            interval={xAxisConfig.interval}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
           <YAxis
-            label={{ value: '庫存天數', angle: -90, position: 'insideLeft' }}
+            label={{ value: '庫存天數', angle: -90, position: 'insideLeft', style: { fill: 'rgba(255, 255, 255, 0.7)', fontSize: fontSize.axis } }}
+            tick={{ fontSize: fontSize.axis, fill: 'rgba(255, 255, 255, 0.7)' }}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
           <Tooltip content={<CustomTooltip />} wrapperStyle={{ zIndex: 9999 }} />
           <Legend content={<CustomLegend />} />
@@ -180,8 +185,8 @@ export function MaterialInventoryChart({ data }) {
               dataKey={material}
               stroke={colors[index % colors.length]}
               strokeWidth={2}
-              dot={{ r: 3 }}
-              activeDot={{ r: 5 }}
+              dot={{ r: 2.5 }}
+              activeDot={{ r: 4 }}
               connectNulls
             />
           ))}
@@ -193,7 +198,7 @@ export function MaterialInventoryChart({ data }) {
 
 // 圖2: 供應商綜合評分趨勢
 export function SupplierPerformanceChart({ data }) {
-  const { isMobile } = useResponsive();
+  const { chartMargin, xAxisConfig, fontSize } = useResponsive();
   if (!data || data.length === 0) return <ChartContainer title="供應商綜合評分趨勢"><div style={{ padding: '20px', textAlign: 'center' }}>暫無資料</div></ChartContainer>;
 
   const suppliers = useMemo(
@@ -221,20 +226,24 @@ export function SupplierPerformanceChart({ data }) {
 
   return (
     <ChartContainer title="供應商綜合評分趨勢">
-      <ResponsiveContainer width="100%" aspect={2.5}>
+      <ResponsiveContainer width="100%" height={320}>
         <LineChart
           data={chartData}
-          margin={{ top: 8, right: 10, left: 10, bottom: 2 }}
+          margin={chartMargin}
         >
-          <CartesianGrid strokeDasharray="3 3" />
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
           <XAxis
             dataKey="month"
-            tick={<CustomXAxisTick angle={isMobile ? -45 : 0} />}
-            height={isMobile ? 60 : 40}
+            tick={<CustomXAxisTick angle={xAxisConfig.angle} />}
+            height={xAxisConfig.height}
+            interval={xAxisConfig.interval}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
           <YAxis
             domain={[70, 100]}
-            label={{ value: '綜合評分', angle: -90, position: 'insideLeft' }}
+            label={{ value: '綜合評分', angle: -90, position: 'insideLeft', style: { fill: 'rgba(255, 255, 255, 0.7)', fontSize: fontSize.axis } }}
+            tick={{ fontSize: fontSize.axis, fill: 'rgba(255, 255, 255, 0.7)' }}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
           <Tooltip content={<CustomTooltip />} wrapperStyle={{ zIndex: 9999 }} />
           <Legend content={<CustomLegend />} />
@@ -245,8 +254,8 @@ export function SupplierPerformanceChart({ data }) {
               dataKey={supplier}
               stroke={colors[index % colors.length]}
               strokeWidth={2.5}
-              dot={{ r: 4 }}
-              activeDot={{ r: 6 }}
+              dot={{ r: 3 }}
+              activeDot={{ r: 5 }}
               connectNulls
             />
           ))}
@@ -258,7 +267,7 @@ export function SupplierPerformanceChart({ data }) {
 
 // 圖3: 供應商準時交貨率
 export function SupplierDeliveryChart({ data }) {
-  const { isMobile } = useResponsive();
+  const { chartMargin, xAxisConfig, fontSize } = useResponsive();
   if (!data || data.length === 0) return <ChartContainer title="供應商準時交貨率與質量合格率"><div style={{ padding: '20px', textAlign: 'center' }}>暫無資料</div></ChartContainer>;
 
   const chartData = useMemo(() => {
@@ -292,20 +301,24 @@ export function SupplierDeliveryChart({ data }) {
 
   return (
     <ChartContainer title="供應商準時交貨率與質量合格率">
-      <ResponsiveContainer width="100%" aspect={2.5}>
+      <ResponsiveContainer width="100%" height={320}>
         <ComposedChart
           data={chartData}
-          margin={{ top: 8, right: 10, left: 10, bottom: 2 }}
+          margin={chartMargin}
         >
-          <CartesianGrid strokeDasharray="3 3" />
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
           <XAxis
             dataKey="month"
-            tick={<CustomXAxisTick angle={isMobile ? -45 : 0} />}
-            height={isMobile ? 60 : 40}
+            tick={<CustomXAxisTick angle={xAxisConfig.angle} />}
+            height={xAxisConfig.height}
+            interval={xAxisConfig.interval}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
           <YAxis
             domain={[80, 100]}
-            label={{ value: '百分比 (%)', angle: -90, position: 'insideLeft' }}
+            label={{ value: '百分比 (%)', angle: -90, position: 'insideLeft', style: { fill: 'rgba(255, 255, 255, 0.7)', fontSize: fontSize.axis } }}
+            tick={{ fontSize: fontSize.axis, fill: 'rgba(255, 255, 255, 0.7)' }}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
           <Tooltip content={<CustomTooltip />} wrapperStyle={{ zIndex: 9999 }} />
           <Legend content={<CustomLegend />} />
@@ -315,7 +328,7 @@ export function SupplierDeliveryChart({ data }) {
             name="平均準時交貨率(%)"
             stroke="#8884d8"
             strokeWidth={2.5}
-            dot={{ r: 4 }}
+            dot={{ r: 3 }}
           >
             <LabelList dataKey="avgOnTime" position="top" fontSize={9} formatter={formatPercent} />
           </Line>
@@ -325,7 +338,7 @@ export function SupplierDeliveryChart({ data }) {
             name="平均質量合格率(%)"
             stroke="#82ca9d"
             strokeWidth={2.5}
-            dot={{ r: 4 }}
+            dot={{ r: 3 }}
           >
             <LabelList dataKey="avgQuality" position="bottom" fontSize={9} formatter={formatPercent} />
           </Line>
