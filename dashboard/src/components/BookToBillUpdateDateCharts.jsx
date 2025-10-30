@@ -13,6 +13,7 @@ import {
 } from 'recharts';
 import html2canvas from 'html2canvas';
 import { extractDayFromDate } from '../utils/bookToBillParser';
+import { useResponsive } from '../hooks/useResponsive';
 
 // 圖表容器組件
 const ChartContainer = ({ title, children }) => {
@@ -150,6 +151,7 @@ const CustomTooltip = ({ active, payload, label }) => {
 
 // 實際出貨值（長條圖）+ 比值的1日、10日、20日折線
 export function ShipmentWithN6RatiosByDate({ matrixDataWithDates }) {
+  const { chartMargin, xAxisConfig, fontSize } = useResponsive();
   const [selectedOffset, setSelectedOffset] = useState(1);
 
   const chartData = useMemo(() => {
@@ -253,14 +255,35 @@ export function ShipmentWithN6RatiosByDate({ matrixDataWithDates }) {
         </div>
       </div>
 
-      <ResponsiveContainer width="100%" height={400}>
-        <ComposedChart data={chartData} margin={{ top: 8, right: 10, left: 10, bottom: 60 }}>
-          <CartesianGrid strokeDasharray="2 1" />
-          <XAxis dataKey="targetMonth" angle={-45} textAnchor="end" height={80} fontSize={10} />
-          <YAxis yAxisId="left" domain={[0, dataMax => Math.max(dataMax * 1.2, 2)]} />
-          <YAxis yAxisId="right" orientation="right" domain={[0, dataMax => dataMax * 1.2]} />
+      <ResponsiveContainer width="100%" height={320}>
+        <ComposedChart data={chartData} margin={chartMargin}>
+          <CartesianGrid strokeDasharray="2 1" stroke="rgba(255, 255, 255, 0.1)" />
+          <XAxis
+            dataKey="targetMonth"
+            angle={xAxisConfig.angle}
+            textAnchor="end"
+            height={xAxisConfig.height}
+            interval={xAxisConfig.interval}
+            tick={{ fontSize: fontSize.axis, fill: 'rgba(255, 255, 255, 0.7)' }}
+            stroke="rgba(255, 255, 255, 0.3)"
+          />
+          <YAxis
+            yAxisId="left"
+            domain={[0, dataMax => Math.max(dataMax * 1.2, 2)]}
+            tick={{ fontSize: fontSize.axis, fill: 'rgba(255, 255, 255, 0.7)' }}
+            stroke="rgba(255, 255, 255, 0.3)"
+            label={{ value: '比值', angle: -90, position: 'insideLeft', style: { fill: 'rgba(255, 255, 255, 0.7)', fontSize: fontSize.axis } }}
+          />
+          <YAxis
+            yAxisId="right"
+            orientation="right"
+            domain={[0, dataMax => dataMax * 1.2]}
+            tick={{ fontSize: fontSize.axis, fill: 'rgba(255, 255, 255, 0.7)' }}
+            stroke="rgba(255, 255, 255, 0.3)"
+            label={{ value: '出貨金額(M)', angle: 90, position: 'insideRight', style: { fill: 'rgba(255, 255, 255, 0.7)', fontSize: fontSize.axis } }}
+          />
           <Tooltip content={<CustomTooltip />} wrapperStyle={{ zIndex: 9999 }} />
-          <Legend wrapperStyle={{ fontSize: '11px' }} />
+          <Legend wrapperStyle={{ fontSize: fontSize.legend }} />
 
           <ReferenceLine yAxisId="left" y={1} stroke="#ff7300" strokeDasharray="3 3" label={{ value: '平衡點 (1.0)', fontSize: 10, fill: '#ff7300' }} />
 
@@ -273,8 +296,9 @@ export function ShipmentWithN6RatiosByDate({ matrixDataWithDates }) {
             type="monotone"
             dataKey={`01日+${selectedOffset}月比值`}
             stroke={currentColors.day01}
-            strokeWidth={3}
-            dot={{ r: 4 }}
+            strokeWidth={2.5}
+            dot={{ r: 3 }}
+            activeDot={{ r: 5 }}
             name={`1日 +${selectedOffset}月比值`}
             connectNulls
           />
@@ -283,8 +307,9 @@ export function ShipmentWithN6RatiosByDate({ matrixDataWithDates }) {
             type="monotone"
             dataKey={`10日+${selectedOffset}月比值`}
             stroke={currentColors.day10}
-            strokeWidth={3}
-            dot={{ r: 4 }}
+            strokeWidth={2.5}
+            dot={{ r: 3 }}
+            activeDot={{ r: 5 }}
             name={`10日 +${selectedOffset}月比值`}
             connectNulls
           />
@@ -293,8 +318,9 @@ export function ShipmentWithN6RatiosByDate({ matrixDataWithDates }) {
             type="monotone"
             dataKey={`20日+${selectedOffset}月比值`}
             stroke={currentColors.day20}
-            strokeWidth={3}
-            dot={{ r: 4 }}
+            strokeWidth={2.5}
+            dot={{ r: 3 }}
+            activeDot={{ r: 5 }}
             name={`20日 +${selectedOffset}月比值`}
             connectNulls
           />
