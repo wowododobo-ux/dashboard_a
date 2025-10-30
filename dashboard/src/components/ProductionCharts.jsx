@@ -217,7 +217,7 @@ export function WaferYieldChart({ data }) {
 
 // 圖2: 產能利用率與OEE
 export function CapacityOEEChart({ data }) {
-  const { isMobile } = useResponsive();
+  const { chartMargin, xAxisConfig, fontSize } = useResponsive();
   if (!data || data.length === 0) return <ChartContainer title="產能利用率與設備效率(OEE)"><div style={{ padding: '20px', textAlign: 'center' }}>暫無資料</div></ChartContainer>;
 
   const chartData = useMemo(() => {
@@ -251,20 +251,24 @@ export function CapacityOEEChart({ data }) {
 
   return (
     <ChartContainer title="產能利用率與設備效率(OEE)">
-      <ResponsiveContainer width="100%" aspect={2.5}>
+      <ResponsiveContainer width="100%" height={320}>
         <ComposedChart
           data={chartData}
-          margin={{ top: 8, right: 10, left: 10, bottom: 2 }}
+          margin={chartMargin}
         >
-          <CartesianGrid strokeDasharray="3 3" />
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
           <XAxis
             dataKey="month"
-            tick={<CustomXAxisTick angle={isMobile ? -45 : 0} />}
-            height={isMobile ? 60 : 40}
+            tick={<CustomXAxisTick angle={xAxisConfig.angle} />}
+            height={xAxisConfig.height}
+            interval={xAxisConfig.interval}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
           <YAxis
             domain={[75, 100]}
-            label={{ value: '百分比 (%)', angle: -90, position: 'insideLeft' }}
+            label={{ value: '百分比 (%)', angle: -90, position: 'insideLeft', style: { fill: 'rgba(255, 255, 255, 0.7)', fontSize: fontSize.axis } }}
+            tick={{ fontSize: fontSize.axis, fill: 'rgba(255, 255, 255, 0.7)' }}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
           <Tooltip content={<CustomTooltip />} wrapperStyle={{ zIndex: 9999 }} />
           <Legend content={<CustomLegend />} />
@@ -274,7 +278,7 @@ export function CapacityOEEChart({ data }) {
             name="產能利用率(%)"
             stroke="#8884d8"
             strokeWidth={2.5}
-            dot={{ r: 4 }}
+            dot={{ r: 3 }}
           >
             <LabelList dataKey="avgUtilization" position="top" fontSize={9} formatter={formatPercent} />
           </Line>
@@ -284,7 +288,7 @@ export function CapacityOEEChart({ data }) {
             name="OEE(%)"
             stroke="#82ca9d"
             strokeWidth={2.5}
-            dot={{ r: 4 }}
+            dot={{ r: 3 }}
           >
             <LabelList dataKey="avgOEE" position="bottom" fontSize={9} formatter={formatPercent} />
           </Line>
