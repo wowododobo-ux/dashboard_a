@@ -13,9 +13,11 @@ import RDTechnology from './pages/RDTechnology';
 import HumanResources from './pages/HumanResources';
 import RiskManagement from './pages/RiskManagement';
 import { textConfig } from './config/textConfig';
+import { useResponsive } from './hooks/useResponsive';
 
 function Navigation() {
   const location = useLocation();
+  const { isMobile } = useResponsive();
 
   // 在比對頁面時不顯示導航
   if (location.pathname.startsWith('/compare/')) {
@@ -26,7 +28,11 @@ function Navigation() {
     <nav className="navigation">
       <div className="nav-logo">
         <Link to="/">
-          <img src="/logo.svg" alt={textConfig.site.logoAlt} className="logo-image" />
+          <img
+            src={isMobile ? "/logo-mobile.svg" : "/logo.svg"}
+            alt={textConfig.site.logoAlt}
+            className="logo-image"
+          />
         </Link>
       </div>
       <div className="nav-links">

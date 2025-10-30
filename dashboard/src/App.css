@@ -201,10 +201,12 @@ body {
 
   .nav-logo {
     padding: 6px 12px;
+    min-width: auto;
   }
 
   .logo-image {
-    height: 36px;
+    height: 40px;
+    width: 40px;
   }
 
   .nav-link {
@@ -217,10 +219,12 @@ body {
 @media (max-width: 480px) {
   .nav-logo {
     padding: 4px 10px;
+    min-width: auto;
   }
 
   .logo-image {
-    height: 32px;
+    height: 36px;
+    width: 36px;
   }
 
   .nav-link {
