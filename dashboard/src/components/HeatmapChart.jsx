@@ -1,6 +1,7 @@
 import { useMemo, useState, useRef, useCallback, useEffect } from 'react';
 import html2canvas from 'html2canvas';
 import { textConfig } from '../config/textConfig';
+import { useResponsive } from '../hooks/useResponsive';
 
 // 圖表容器組件
 const ChartContainer = ({ title, children }) => {
@@ -105,6 +106,7 @@ const getColorByRatio = (ratio) => {
 
 // 熱力圖組件
 export function BookToBillHeatmap({ data }) {
+  const { isMobile, isTablet, windowWidth } = useResponsive();
   const [hoveredCell, setHoveredCell] = useState(null);
   const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
 
@@ -122,6 +124,32 @@ export function BookToBillHeatmap({ data }) {
       note: item['註解'] || ''
     }));
   }, [data]);
+
+  // 根據螢幕寬度計算單元格尺寸
+  const dimensions = useMemo(() => {
+    let cellWidth, cellHeight, leftMargin, fontSize;
+
+    if (isMobile) {
+      // 手機：計算可用寬度並均分給6個單元格
+      const availableWidth = Math.min(windowWidth - 60, 320); // 留出左右邊距
+      cellWidth = Math.floor((availableWidth - 70) / 6); // 70px for left margin
+      cellHeight = 28;
+      leftMargin = 70;
+      fontSize = 9;
+    } else if (isTablet) {
+      cellWidth = 50;
+      cellHeight = 30;
+      leftMargin = 85;
+      fontSize = 10;
+    } else {
+      cellWidth = 60;
+      cellHeight = 30;
+      leftMargin = 100;
+      fontSize = 11;
+    }
+
+    return { cellWidth, cellHeight, leftMargin, fontSize };
+  }, [isMobile, isTablet, windowWidth]);
 
   const handleMouseEnter = (e, baseMonth, monthOffset, data) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -144,10 +172,8 @@ export function BookToBillHeatmap({ data }) {
     return <div>{textConfig.common.noData}</div>;
   }
 
-  const cellWidth = 60;
-  const cellHeight = 30;
-  const leftMargin = 100;
-  const topMargin = 50;
+  const { cellWidth, cellHeight, leftMargin, fontSize } = dimensions;
+  const topMargin = isMobile ? 35 : 50;
   const chartWidth = leftMargin + cellWidth * 6 + 20;
   const chartHeight = topMargin + cellHeight * chartData.length + 50;
 
@@ -169,8 +195,8 @@ export function BookToBillHeatmap({ data }) {
               x={leftMargin + i * cellWidth + cellWidth / 2}
               y={topMargin - 15}
               textAnchor="middle"
-              fontSize={12}
-              fill="#666"
+              fontSize={isMobile ? 10 : 12}
+              fill="rgba(255, 255, 255, 0.7)"
               fontWeight="bold"
             >
               {label}
@@ -186,8 +212,8 @@ export function BookToBillHeatmap({ data }) {
                 y={topMargin + rowIndex * cellHeight + cellHeight / 2}
                 textAnchor="end"
                 dominantBaseline="middle"
-                fontSize={11}
-                fill="#666"
+                fontSize={isMobile ? 9 : 11}
+                fill="rgba(255, 255, 255, 0.7)"
               >
                 {row.baseMonth}
               </text>
@@ -201,7 +227,7 @@ export function BookToBillHeatmap({ data }) {
                     width={cellWidth}
                     height={cellHeight}
                     fill={getColorByRatio(monthData.ratio)}
-                    stroke="#fff"
+                    stroke="rgba(255, 255, 255, 0.3)"
                     strokeWidth={2}
                     style={{ cursor: 'pointer' }}
                     onMouseEnter={(e) => handleMouseEnter(e, row.baseMonth, colIndex + 1, monthData)}
@@ -212,7 +238,7 @@ export function BookToBillHeatmap({ data }) {
                     y={topMargin + rowIndex * cellHeight + cellHeight / 2}
                     textAnchor="middle"
                     dominantBaseline="middle"
-                    fontSize={11}
+                    fontSize={fontSize}
                     fill="#fff"
                     fontWeight="bold"
                     pointerEvents="none"

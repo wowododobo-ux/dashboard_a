@@ -12,6 +12,7 @@ import {
   ReferenceLine
 } from 'recharts';
 import html2canvas from 'html2canvas';
+import { textConfig } from '../config/textConfig';
 import { extractDayFromDate } from '../utils/bookToBillParser';
 import { useResponsive } from '../hooks/useResponsive';
 
@@ -68,14 +69,14 @@ const ChartContainer = ({ title, children }) => {
           }, 2000);
         } catch (err) {
           console.error('複製失敗:', err);
-          alert('複製失敗，請重試');
+          alert(textConfig.common.copyFailed);
         } finally {
           setCopying(false);
         }
       });
     } catch (err) {
       console.error('生成圖片失敗:', err);
-      alert('生成圖片失敗，請重試');
+      alert(textConfig.common.generateImageFailed);
       setCopying(false);
     }
   }, [copying]);
@@ -94,9 +95,9 @@ const ChartContainer = ({ title, children }) => {
             className={`copy-button ${copied ? 'copied' : ''}`}
             onClick={handleCopy}
             disabled={copying}
-            title="複製圖表為圖片"
+            title={textConfig.common.copyChartTooltip}
           >
-            {copying ? '複製中...' : copied ? '✓ 已複製' : '📋 複製'}
+            {copying ? textConfig.common.copying : copied ? textConfig.common.copied : textConfig.common.copy}
           </button>
         )}
       </div>
