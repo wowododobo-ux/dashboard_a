@@ -546,7 +546,7 @@ export function CustomerABCChart({ data }) {
         };
       }
       monthMap[month][item['客戶']] = item['營收(M NTD)'];
-      // 存储客户等级信息
+      // 儲存客戶等級資訊
       if (!monthMap[month].grades) {
         monthMap[month].grades = {};
       }
@@ -555,9 +555,9 @@ export function CustomerABCChart({ data }) {
     return Object.values(monthMap);
   }, [data]);
 
-  // 按客户等级分配颜色
+  // 按客戶等級分配顏色
   const getColorByCustomer = (customer) => {
-    // 从第一个月份的数据中获取客户等级
+    // 從第一個月份的資料中獲取客戶等級
     const firstMonth = data.find(item => item['客戶'] === customer);
     if (!firstMonth) return '#8884d8';
 

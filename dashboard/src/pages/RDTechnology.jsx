@@ -1,5 +1,11 @@
 import { useState, useEffect } from 'react';
 import { loadRDData } from '../utils/rdParser';
+import {
+  ProcessDevelopmentChart,
+  PatentTrendChart,
+  RDInvestmentChart,
+  PatentFieldsChart
+} from '../components/RDCharts';
 import { textConfig } from '../config/textConfig';
 
 function RDTechnology() {
@@ -39,20 +45,10 @@ function RDTechnology() {
       </header>
 
       <div className="dashboard-grid">
-        <div className="chart-container">
-          <h3 className="chart-title">{textConfig.rdCharts.newProcess}</h3>
-          <div style={{ padding: '20px' }}>
-            <p>{textConfig.common.dataLoaded}，共 {data['新製程開發進度']?.length || 0} {textConfig.common.recordsCount}</p>
-            <p>{textConfig.rdCharts.processTracking}</p>
-          </div>
-        </div>
-        <div className="chart-container">
-          <h3 className="chart-title">{textConfig.rdCharts.patents}</h3>
-          <div style={{ padding: '20px' }}>
-            <p>{textConfig.common.dataLoaded}，共 {data['專利申請與授權']?.length || 0} {textConfig.common.recordsCount}</p>
-            <p>{textConfig.rdCharts.patentFields}</p>
-          </div>
-        </div>
+        <ProcessDevelopmentChart data={data['新製程開發進度']} />
+        <PatentTrendChart data={data['專利申請與授權']} />
+        <PatentFieldsChart data={data['專利申請與授權']} />
+        <RDInvestmentChart data={data['研發投入統計']} />
       </div>
 
       <footer className="dashboard-footer">

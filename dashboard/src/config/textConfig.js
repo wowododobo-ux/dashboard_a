@@ -24,6 +24,46 @@ export const textConfig = {
   },
 
   // ============================================
+  // Top KPI 卡片
+  // ============================================
+  topKPICards: {
+    sectionTitle: 'Top KPI 關鍵指標',
+    loading: '載入 KPI 數據中...',
+    error: '無法載入 KPI 數據',
+    clickHint: '點擊查看詳情 →',
+
+    // Modal 相關
+    modalTitle: 'KPI 詳細分析',
+    trendChartTitle: '12個月趨勢分析',
+    driversTitle: '關鍵驅動因素',
+    varianceTableTitle: '差異分析表',
+    conclusionTitle: '分析結論',
+
+    // 狀態標籤
+    statusGreen: '達標',
+    statusAmber: '警示',
+    statusRed: '未達標',
+
+    // 表格欄位
+    period: '比較期間',
+    actualValue: '實際值',
+    compareValue: '比較值',
+    difference: '差異',
+    differencePercent: '差異 %',
+
+    // 比較期間
+    vsTarget: '本月 vs 目標',
+    vsLastMonth: '本月 vs 上月',
+    vs3MonthsAgo: '本月 vs 3個月前',
+    vs6MonthsAgo: '本月 vs 6個月前',
+
+    // KPI 卡片標籤
+    currentValue: '當前值',
+    targetValue: '目標值',
+    deltaLabel: '較目標',
+  },
+
+  // ============================================
   // 模組卡片
   // ============================================
   moduleCards: {

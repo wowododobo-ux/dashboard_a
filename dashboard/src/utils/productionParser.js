@@ -43,7 +43,7 @@ export function extractYearFromMonth(monthStr) {
   return monthStr.split('-')[0];
 }
 
-// 筛选特定年度的数据
+// 篩選特定年度的資料
 export function filterByYear(data, year) {
   if (!data) return data;
   if (year === 'all') {

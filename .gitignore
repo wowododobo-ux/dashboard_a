@@ -57,3 +57,23 @@ backups/
 # 操作系統
 Thumbs.db
 desktop.ini
+
+# Claude Code 內部檔案
+.claude/
+
+# 報告與文檔（保留 README.md）
+實時警報系統完成報告.md
+檔案整理完成報告.md
+檔案整理規劃.md
+首頁導覽完成報告.md
+內容.txt
+CODE_CLEANUP_SUMMARY.md
+DEPLOYMENT_CHECKLIST.md
+DEPLOYMENT_GUIDE.md
+KPI目標對比卡片完成報告.md
+LEGEND_CONFIG_GUIDE.md
+TEXT_CONFIG_GUIDE.md
+deploy.sh
+
+# 舊的 JSON 檔案（已改用 Excel）
+dashboard/public/top-kpis.json

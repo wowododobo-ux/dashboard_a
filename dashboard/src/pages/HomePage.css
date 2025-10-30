@@ -71,6 +71,14 @@
   margin: 0 0 50px 0;
 }
 
+/* Top KPI 網格 */
+.top-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 24px;
+  margin-bottom: 60px;
+}
+
 /* 模組網格 */
 .modules-grid {
   display: grid;
@@ -184,6 +192,11 @@
     font-size: 28px;
   }
 
+  .top-kpi-grid {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 20px;
+  }
+
   .modules-grid {
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 20px;
@@ -228,6 +241,11 @@
   .modules-title {
     font-size: 24px;
     margin-bottom: 30px;
+  }
+
+  .top-kpi-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
 
   .modules-grid {

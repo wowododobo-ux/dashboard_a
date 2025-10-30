@@ -1,0 +1,241 @@
+.top-kpi-card {
+  background: linear-gradient(135deg, #1e1e2e 0%, #252944 100%);
+  border-radius: 16px;
+  padding: 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  position: relative;
+  overflow: hidden;
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.top-kpi-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.top-kpi-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+  border-color: rgba(102, 126, 234, 0.5);
+}
+
+.top-kpi-card:hover::before {
+  opacity: 1;
+}
+
+/* 狀態邊框顏色 */
+.top-kpi-card.status-green:hover {
+  border-color: rgba(76, 175, 80, 0.5);
+}
+
+.top-kpi-card.status-amber:hover {
+  border-color: rgba(255, 152, 0, 0.5);
+}
+
+.top-kpi-card.status-red:hover {
+  border-color: rgba(244, 67, 54, 0.5);
+}
+
+/* 標題區 */
+.kpi-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.kpi-title h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: white;
+  line-height: 1.2;
+}
+
+.kpi-title-en {
+  display: block;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 4px;
+}
+
+.kpi-status-badge {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* 主要數值區 */
+.kpi-main-value {
+  margin-bottom: 16px;
+}
+
+.kpi-value {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.value-number {
+  font-size: 48px;
+  font-weight: 700;
+  color: white;
+  line-height: 1;
+  font-family: 'Arial', sans-serif;
+  letter-spacing: -1px;
+}
+
+.value-unit {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+}
+
+.kpi-target {
+  display: flex;
+  gap: 6px;
+  font-size: 14px;
+}
+
+.target-label {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.target-value {
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+}
+
+/* 差異與趨勢區 */
+.kpi-delta-trend {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.kpi-delta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.delta-value {
+  font-size: 20px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.delta-value.positive {
+  color: #4caf50;
+}
+
+.delta-value.negative {
+  color: #f44336;
+}
+
+.delta-label {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Sparkline 區 */
+.kpi-sparkline {
+  flex: 1;
+  position: relative;
+  min-width: 120px;
+}
+
+.trend-direction {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.trend-direction.up {
+  color: #4caf50;
+}
+
+.trend-direction.down {
+  color: #f44336;
+}
+
+/* 點擊提示 */
+.kpi-click-hint {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.4);
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.top-kpi-card:hover .kpi-click-hint {
+  opacity: 1;
+}
+
+/* 響應式設計 */
+@media (max-width: 1440px) {
+  .value-number {
+    font-size: 42px;
+  }
+
+  .top-kpi-card {
+    padding: 20px;
+    min-height: 220px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .value-number {
+    font-size: 36px;
+  }
+
+  .top-kpi-card {
+    padding: 18px;
+    min-height: 200px;
+  }
+
+  .kpi-delta-trend {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .kpi-sparkline {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .value-number {
+    font-size: 32px;
+  }
+
+  .top-kpi-card {
+    padding: 16px;
+  }
+}
