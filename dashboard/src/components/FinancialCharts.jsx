@@ -135,8 +135,9 @@ const CustomXAxisTick = ({ x, y, payload, chartData, angle = 0, isMobile = false
         y={0}
         dy={16}
         textAnchor={isMobile && angle !== 0 ? 'end' : 'middle'}
-        fill="#666"
+        fill="rgba(255, 255, 255, 0.7)"
         fontSize={11}
+        fontWeight="500"
         transform={angle !== 0 ? `rotate(${angle})` : ''}
       >
         {payload.value}
@@ -276,7 +277,7 @@ const ChartContainer = ({ id, title, children, onClick }) => {
 
 // 圖一：合併營收淨額與銷貨毛利率
 export const Chart1 = ({ data, onClick }) => {
-  const { chartHeight, fontSize, isMobile } = useResponsive();
+  const { chartMargin, xAxisConfig, fontSize, isMobile } = useResponsive();
   if (!data) return <div>載入中...</div>;
 
   // 直接從數據中提取欄位名稱（使用 Excel 實際欄位）
@@ -305,17 +306,19 @@ export const Chart1 = ({ data, onClick }) => {
 
   return (
     <ChartContainer id="chart1" title={textConfig.financialCharts.chart1} onClick={onClick}>
-      <ResponsiveContainer width="100%" aspect={2.5}>
-        <ComposedChart data={chartData} margin={{ top: 8, right: 10, left: 10, bottom: 2 }} barCategoryGap="15%">
-          <CartesianGrid strokeDasharray="3 3" />
+      <ResponsiveContainer width="100%" height={320}>
+        <ComposedChart data={chartData} margin={chartMargin} barCategoryGap="15%">
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
           <XAxis
             dataKey="month"
-            tick={<CustomXAxisTick chartData={chartData} angle={isMobile ? -45 : 0} isMobile={isMobile} />}
-            height={isMobile ? 60 : 40}
+            tick={<CustomXAxisTick chartData={chartData} angle={xAxisConfig.angle} isMobile={isMobile} />}
+            height={xAxisConfig.height}
+            interval={xAxisConfig.interval}
             padding={{ left: 0, right: 0 }}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
-          <YAxis yAxisId="left" fontSize={fontSize.axis} tick={false} width={0} domain={[0, dataMax => dataMax * 1.2]} />
-          <YAxis yAxisId="right" orientation="right" fontSize={fontSize.axis} tick={false} width={0} domain={[0, dataMax => dataMax * 1.2]} />
+          <YAxis yAxisId="left" fontSize={fontSize.axis} tick={false} width={0} domain={[0, dataMax => dataMax * 1.2]} stroke="rgba(255, 255, 255, 0.3)" />
+          <YAxis yAxisId="right" orientation="right" fontSize={fontSize.axis} tick={false} width={0} domain={[0, dataMax => dataMax * 1.2]} stroke="rgba(255, 255, 255, 0.3)" />
           <Tooltip content={<CustomTooltip />} wrapperStyle={{ zIndex: 9999 }} />
           <Legend content={<CustomLegend customOrder={legendConfig.chart1} />} />
           <Bar yAxisId="left" dataKey={col1} stackId="revenue" fill="#8884d8" name={col1}>
@@ -350,7 +353,7 @@ export const Chart1 = ({ data, onClick }) => {
 
 // 圖二：銷貨退回與折讓
 export const Chart2 = ({ data, onClick }) => {
-  const { chartHeight, fontSize, isMobile } = useResponsive();
+  const { chartMargin, xAxisConfig, fontSize, isMobile } = useResponsive();
   if (!data) return <div>載入中...</div>;
 
   const col1 = '銷貨退回與折讓(M NTD)';
@@ -372,16 +375,18 @@ export const Chart2 = ({ data, onClick }) => {
 
   return (
     <ChartContainer id="chart2" title={textConfig.financialCharts.chart2} onClick={onClick}>
-      <ResponsiveContainer width="100%" aspect={2.5}>
-        <ComposedChart data={chartData} margin={{ top: 8, right: 10, left: 10, bottom: 2 }} barCategoryGap="15%" barGap={0}>
-          <CartesianGrid strokeDasharray="3 3" />
+      <ResponsiveContainer width="100%" height={320}>
+        <ComposedChart data={chartData} margin={chartMargin} barCategoryGap="15%" barGap={0}>
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
           <XAxis
             dataKey="month"
-            tick={<CustomXAxisTick chartData={chartData} angle={isMobile ? -45 : 0} isMobile={isMobile} />}
-            height={isMobile ? 60 : 40}
+            tick={<CustomXAxisTick chartData={chartData} angle={xAxisConfig.angle} isMobile={isMobile} />}
+            height={xAxisConfig.height}
+            interval={xAxisConfig.interval}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
-          <YAxis yAxisId="left" fontSize={fontSize.axis} tick={false} width={0} domain={[0, dataMax => dataMax * 1.2]} />
-          <YAxis yAxisId="right" orientation="right" fontSize={fontSize.axis} tick={false} width={0} domain={[0, dataMax => dataMax * 1.2]} />
+          <YAxis yAxisId="left" fontSize={fontSize.axis} tick={false} width={0} domain={[0, dataMax => dataMax * 1.2]} stroke="rgba(255, 255, 255, 0.3)" />
+          <YAxis yAxisId="right" orientation="right" fontSize={fontSize.axis} tick={false} width={0} domain={[0, dataMax => dataMax * 1.2]} stroke="rgba(255, 255, 255, 0.3)" />
           <Tooltip content={<CustomTooltip />} wrapperStyle={{ zIndex: 9999 }} />
           <Legend content={<CustomLegend customOrder={legendConfig.chart2} />} />
           <Bar yAxisId="left" dataKey={col1} fill="#8884d8" name={col1} maxBarSize={500}>
@@ -404,7 +409,7 @@ export const Chart2 = ({ data, onClick }) => {
 
 // 圖三：營業毛利與營業毛利率
 export const Chart3 = ({ data, onClick }) => {
-  const { chartHeight, fontSize, isMobile } = useResponsive();
+  const { chartMargin, xAxisConfig, fontSize, isMobile } = useResponsive();
   if (!data) return <div>載入中...</div>;
 
   const col1 = '營業毛利(M NTD)';
@@ -426,17 +431,19 @@ export const Chart3 = ({ data, onClick }) => {
 
   return (
     <ChartContainer id="chart3" title={textConfig.financialCharts.chart3} onClick={onClick}>
-      <ResponsiveContainer width="100%" aspect={2.5}>
-        <ComposedChart data={chartData} margin={{ top: 8, right: 10, left: 10, bottom: 2 }} barCategoryGap="15%">
-          <CartesianGrid strokeDasharray="3 3" />
+      <ResponsiveContainer width="100%" height={320}>
+        <ComposedChart data={chartData} margin={chartMargin} barCategoryGap="15%">
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
           <XAxis
             dataKey="month"
-            tick={<CustomXAxisTick chartData={chartData} angle={isMobile ? -45 : 0} isMobile={isMobile} />}
-            height={isMobile ? 60 : 40}
+            tick={<CustomXAxisTick chartData={chartData} angle={xAxisConfig.angle} isMobile={isMobile} />}
+            height={xAxisConfig.height}
+            interval={xAxisConfig.interval}
             padding={{ left: 0, right: 0 }}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
-          <YAxis yAxisId="left" fontSize={fontSize.axis} tick={false} width={0} domain={[0, dataMax => dataMax * 1.2]} />
-          <YAxis yAxisId="right" orientation="right" fontSize={fontSize.axis} tick={false} width={0} domain={[0, dataMax => dataMax * 1.2]} />
+          <YAxis yAxisId="left" fontSize={fontSize.axis} tick={false} width={0} domain={[0, dataMax => dataMax * 1.2]} stroke="rgba(255, 255, 255, 0.3)" />
+          <YAxis yAxisId="right" orientation="right" fontSize={fontSize.axis} tick={false} width={0} domain={[0, dataMax => dataMax * 1.2]} stroke="rgba(255, 255, 255, 0.3)" />
           <Tooltip content={<CustomTooltip />} wrapperStyle={{ zIndex: 9999 }} />
           <Legend content={<CustomLegend customOrder={legendConfig.chart3} />} />
           <Bar yAxisId="left" dataKey={col1} fill="#82ca9d" name={col1}>
@@ -459,7 +466,7 @@ export const Chart3 = ({ data, onClick }) => {
 
 // 圖四：存貨與跌價損失
 export const Chart4 = ({ data, onClick }) => {
-  const { chartHeight, fontSize, isMobile } = useResponsive();
+  const { chartMargin, xAxisConfig, fontSize, isMobile } = useResponsive();
   if (!data) return <div>載入中...</div>;
 
   const col1 = '存貨與跌價損失(M NTD)';
@@ -481,17 +488,19 @@ export const Chart4 = ({ data, onClick }) => {
 
   return (
     <ChartContainer id="chart4" title={textConfig.financialCharts.chart4} onClick={onClick}>
-      <ResponsiveContainer width="100%" aspect={2.5}>
-        <ComposedChart data={chartData} margin={{ top: 8, right: 10, left: 10, bottom: 2 }} barCategoryGap="15%">
-          <CartesianGrid strokeDasharray="3 3" />
+      <ResponsiveContainer width="100%" height={320}>
+        <ComposedChart data={chartData} margin={chartMargin} barCategoryGap="15%">
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
           <XAxis
             dataKey="month"
-            tick={<CustomXAxisTick chartData={chartData} angle={isMobile ? -45 : 0} isMobile={isMobile} />}
-            height={isMobile ? 60 : 40}
+            tick={<CustomXAxisTick chartData={chartData} angle={xAxisConfig.angle} isMobile={isMobile} />}
+            height={xAxisConfig.height}
+            interval={xAxisConfig.interval}
             padding={{ left: 0, right: 0 }}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
-          <YAxis yAxisId="left" fontSize={fontSize.axis} tick={false} width={0} domain={[0, dataMax => dataMax * 1.2]} />
-          <YAxis yAxisId="right" orientation="right" fontSize={fontSize.axis} tick={false} width={0} domain={[0, dataMax => dataMax * 1.2]} />
+          <YAxis yAxisId="left" fontSize={fontSize.axis} tick={false} width={0} domain={[0, dataMax => dataMax * 1.2]} stroke="rgba(255, 255, 255, 0.3)" />
+          <YAxis yAxisId="right" orientation="right" fontSize={fontSize.axis} tick={false} width={0} domain={[0, dataMax => dataMax * 1.2]} stroke="rgba(255, 255, 255, 0.3)" />
           <Tooltip content={<CustomTooltip />} wrapperStyle={{ zIndex: 9999 }} />
           <Legend content={<CustomLegend customOrder={legendConfig.chart4} />} />
           <Bar yAxisId="left" dataKey={col1} fill="#ff6b6b" name={col1}>
@@ -514,7 +523,7 @@ export const Chart4 = ({ data, onClick }) => {
 
 // 圖五：閒置產能損失
 export const Chart5 = ({ data, onClick }) => {
-  const { chartHeight, fontSize, isMobile } = useResponsive();
+  const { chartMargin, xAxisConfig, fontSize, isMobile } = useResponsive();
   if (!data) return <div>載入中...</div>;
 
   const col1 = '閒置產能損失(M NTD)';
@@ -533,16 +542,18 @@ export const Chart5 = ({ data, onClick }) => {
 
   return (
     <ChartContainer id="chart5" title={textConfig.financialCharts.chart5} onClick={onClick}>
-      <ResponsiveContainer width="100%" aspect={2.5}>
-        <BarChart data={chartData} margin={{ top: 8, right: 10, left: 10, bottom: 2 }} barCategoryGap="15%">
-          <CartesianGrid strokeDasharray="3 3" />
+      <ResponsiveContainer width="100%" height={320}>
+        <BarChart data={chartData} margin={chartMargin} barCategoryGap="15%">
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
           <XAxis
             dataKey="month"
-            tick={<CustomXAxisTick chartData={chartData} angle={isMobile ? -45 : 0} isMobile={isMobile} />}
-            height={isMobile ? 60 : 40}
+            tick={<CustomXAxisTick chartData={chartData} angle={xAxisConfig.angle} isMobile={isMobile} />}
+            height={xAxisConfig.height}
+            interval={xAxisConfig.interval}
             padding={{ left: 0, right: 0 }}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
-          <YAxis fontSize={fontSize.axis} tick={false} width={0} domain={[0, dataMax => dataMax * 1.2]} />
+          <YAxis fontSize={fontSize.axis} tick={false} width={0} domain={[0, dataMax => dataMax * 1.2]} stroke="rgba(255, 255, 255, 0.3)" />
           <Tooltip content={<CustomTooltip />} wrapperStyle={{ zIndex: 9999 }} />
           <Legend content={<CustomLegend customOrder={legendConfig.chart5} />} />
           <Bar dataKey={col1} fill="#9b59b6" name={col1}>
@@ -559,7 +570,7 @@ export const Chart5 = ({ data, onClick }) => {
 
 // 圖六：營業費用
 export const Chart6 = ({ data, onClick }) => {
-  const { chartHeight, fontSize, isMobile } = useResponsive();
+  const { chartMargin, xAxisConfig, fontSize, isMobile } = useResponsive();
   if (!data) return <div>載入中...</div>;
 
   const col1 = '研發費用(M NTD)';
@@ -587,17 +598,19 @@ export const Chart6 = ({ data, onClick }) => {
 
   return (
     <ChartContainer id="chart6" title={textConfig.financialCharts.chart6} onClick={onClick}>
-      <ResponsiveContainer width="100%" aspect={2.5}>
-        <ComposedChart data={chartData} margin={{ top: 8, right: 10, left: 10, bottom: 2 }} barCategoryGap="15%">
-          <CartesianGrid strokeDasharray="3 3" />
+      <ResponsiveContainer width="100%" height={320}>
+        <ComposedChart data={chartData} margin={chartMargin} barCategoryGap="15%">
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
           <XAxis
             dataKey="month"
-            tick={<CustomXAxisTick chartData={chartData} angle={isMobile ? -45 : 0} isMobile={isMobile} />}
-            height={isMobile ? 60 : 40}
+            tick={<CustomXAxisTick chartData={chartData} angle={xAxisConfig.angle} isMobile={isMobile} />}
+            height={xAxisConfig.height}
+            interval={xAxisConfig.interval}
             padding={{ left: 0, right: 0 }}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
-          <YAxis yAxisId="left" fontSize={fontSize.axis} tick={false} width={0} domain={[0, dataMax => dataMax * 1.2]} />
-          <YAxis yAxisId="right" orientation="right" fontSize={fontSize.axis} tick={false} width={0} domain={[0, dataMax => dataMax * 1.2]} />
+          <YAxis yAxisId="left" fontSize={fontSize.axis} tick={false} width={0} domain={[0, dataMax => dataMax * 1.2]} stroke="rgba(255, 255, 255, 0.3)" />
+          <YAxis yAxisId="right" orientation="right" fontSize={fontSize.axis} tick={false} width={0} domain={[0, dataMax => dataMax * 1.2]} stroke="rgba(255, 255, 255, 0.3)" />
           <Tooltip content={<CustomTooltip />} wrapperStyle={{ zIndex: 9999 }} />
           <Legend content={<CustomLegend customOrder={legendConfig.chart6} />} />
           <Bar yAxisId="left" dataKey={col1} stackId="expense" fill="#3498db" name={col1}>
@@ -632,7 +645,7 @@ export const Chart6 = ({ data, onClick }) => {
 
 // 圖七：營業利益
 export const Chart7 = ({ data, onClick }) => {
-  const { chartHeight, fontSize, isMobile } = useResponsive();
+  const { chartMargin, xAxisConfig, fontSize, isMobile } = useResponsive();
   if (!data) return <div>載入中...</div>;
 
   const col1 = '營業利益(M NTD)';
@@ -654,17 +667,19 @@ export const Chart7 = ({ data, onClick }) => {
 
   return (
     <ChartContainer id="chart7" title={textConfig.financialCharts.chart7} onClick={onClick}>
-      <ResponsiveContainer width="100%" aspect={2.5}>
-        <ComposedChart data={chartData} margin={{ top: 8, right: 10, left: 10, bottom: 2 }} barCategoryGap="15%">
-          <CartesianGrid strokeDasharray="3 3" />
+      <ResponsiveContainer width="100%" height={320}>
+        <ComposedChart data={chartData} margin={chartMargin} barCategoryGap="15%">
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
           <XAxis
             dataKey="month"
-            tick={<CustomXAxisTick chartData={chartData} angle={isMobile ? -45 : 0} isMobile={isMobile} />}
-            height={isMobile ? 60 : 40}
+            tick={<CustomXAxisTick chartData={chartData} angle={xAxisConfig.angle} isMobile={isMobile} />}
+            height={xAxisConfig.height}
+            interval={xAxisConfig.interval}
             padding={{ left: 0, right: 0 }}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
-          <YAxis yAxisId="left" fontSize={fontSize.axis} tick={false} width={0} domain={[0, dataMax => dataMax * 1.2]} />
-          <YAxis yAxisId="right" orientation="right" fontSize={fontSize.axis} tick={false} width={0} domain={[0, dataMax => dataMax * 1.2]} />
+          <YAxis yAxisId="left" fontSize={fontSize.axis} tick={false} width={0} domain={[0, dataMax => dataMax * 1.2]} stroke="rgba(255, 255, 255, 0.3)" />
+          <YAxis yAxisId="right" orientation="right" fontSize={fontSize.axis} tick={false} width={0} domain={[0, dataMax => dataMax * 1.2]} stroke="rgba(255, 255, 255, 0.3)" />
           <Tooltip content={<CustomTooltip />} wrapperStyle={{ zIndex: 9999 }} />
           <Legend content={<CustomLegend customOrder={legendConfig.chart7} />} />
           <Bar yAxisId="left" dataKey={col1} fill="#27ae60" name={col1}>
@@ -687,7 +702,7 @@ export const Chart7 = ({ data, onClick }) => {
 
 // 圖八：EBITDA
 export const Chart8 = ({ data, onClick }) => {
-  const { chartHeight, fontSize, isMobile } = useResponsive();
+  const { chartMargin, xAxisConfig, fontSize, isMobile } = useResponsive();
   if (!data) return <div>載入中...</div>;
 
   const col1 = 'EBITDA(M NTD)';
@@ -709,17 +724,19 @@ export const Chart8 = ({ data, onClick }) => {
 
   return (
     <ChartContainer id="chart8" title={textConfig.financialCharts.chart8} onClick={onClick}>
-      <ResponsiveContainer width="100%" aspect={2.5}>
-        <ComposedChart data={chartData} margin={{ top: 8, right: 10, left: 10, bottom: 2 }} barCategoryGap="15%">
-          <CartesianGrid strokeDasharray="3 3" />
+      <ResponsiveContainer width="100%" height={320}>
+        <ComposedChart data={chartData} margin={chartMargin} barCategoryGap="15%">
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
           <XAxis
             dataKey="month"
-            tick={<CustomXAxisTick chartData={chartData} angle={isMobile ? -45 : 0} isMobile={isMobile} />}
-            height={isMobile ? 60 : 40}
+            tick={<CustomXAxisTick chartData={chartData} angle={xAxisConfig.angle} isMobile={isMobile} />}
+            height={xAxisConfig.height}
+            interval={xAxisConfig.interval}
             padding={{ left: 0, right: 0 }}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
-          <YAxis yAxisId="left" fontSize={fontSize.axis} tick={false} width={0} domain={[0, dataMax => dataMax * 1.2]} />
-          <YAxis yAxisId="right" orientation="right" fontSize={fontSize.axis} tick={false} width={0} domain={[0, dataMax => dataMax * 1.2]} />
+          <YAxis yAxisId="left" fontSize={fontSize.axis} tick={false} width={0} domain={[0, dataMax => dataMax * 1.2]} stroke="rgba(255, 255, 255, 0.3)" />
+          <YAxis yAxisId="right" orientation="right" fontSize={fontSize.axis} tick={false} width={0} domain={[0, dataMax => dataMax * 1.2]} stroke="rgba(255, 255, 255, 0.3)" />
           <Tooltip content={<CustomTooltip />} wrapperStyle={{ zIndex: 9999 }} />
           <Legend content={<CustomLegend customOrder={legendConfig.chart8} />} />
           <Bar yAxisId="left" dataKey={col1} fill="#16a085" name={col1}>
@@ -742,7 +759,7 @@ export const Chart8 = ({ data, onClick }) => {
 
 // 圖九：稅後淨利
 export const Chart9 = ({ data, onClick }) => {
-  const { chartHeight, fontSize, isMobile } = useResponsive();
+  const { chartMargin, xAxisConfig, fontSize, isMobile } = useResponsive();
   if (!data) return <div>載入中...</div>;
 
   const col1 = '稅後淨利(M NTD)';
@@ -764,17 +781,19 @@ export const Chart9 = ({ data, onClick }) => {
 
   return (
     <ChartContainer id="chart9" title={textConfig.financialCharts.chart9} onClick={onClick}>
-      <ResponsiveContainer width="100%" aspect={2.5}>
-        <ComposedChart data={chartData} margin={{ top: 8, right: 10, left: 10, bottom: 2 }} barCategoryGap="15%">
-          <CartesianGrid strokeDasharray="3 3" />
+      <ResponsiveContainer width="100%" height={320}>
+        <ComposedChart data={chartData} margin={chartMargin} barCategoryGap="15%">
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
           <XAxis
             dataKey="month"
-            tick={<CustomXAxisTick chartData={chartData} angle={isMobile ? -45 : 0} isMobile={isMobile} />}
-            height={isMobile ? 60 : 40}
+            tick={<CustomXAxisTick chartData={chartData} angle={xAxisConfig.angle} isMobile={isMobile} />}
+            height={xAxisConfig.height}
+            interval={xAxisConfig.interval}
             padding={{ left: 0, right: 0 }}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
-          <YAxis yAxisId="left" fontSize={fontSize.axis} tick={false} width={0} domain={[0, dataMax => dataMax * 1.2]} />
-          <YAxis yAxisId="right" orientation="right" fontSize={fontSize.axis} tick={false} width={0} domain={[0, dataMax => dataMax * 1.2]} />
+          <YAxis yAxisId="left" fontSize={fontSize.axis} tick={false} width={0} domain={[0, dataMax => dataMax * 1.2]} stroke="rgba(255, 255, 255, 0.3)" />
+          <YAxis yAxisId="right" orientation="right" fontSize={fontSize.axis} tick={false} width={0} domain={[0, dataMax => dataMax * 1.2]} stroke="rgba(255, 255, 255, 0.3)" />
           <Tooltip content={<CustomTooltip />} wrapperStyle={{ zIndex: 9999 }} />
           <Legend content={<CustomLegend customOrder={legendConfig.chart9} />} />
           <Bar yAxisId="left" dataKey={col1} fill="#2980b9" name={col1}>
