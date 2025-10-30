@@ -117,8 +117,9 @@ const CustomXAxisTick = ({ x, y, payload, angle = 0 }) => {
         y={0}
         dy={16}
         textAnchor={angle !== 0 ? 'end' : 'middle'}
-        fill="#666"
+        fill="rgba(255, 255, 255, 0.7)"
         fontSize={11}
+        fontWeight="500"
         transform={angle !== 0 ? `rotate(${angle})` : ''}
       >
         {payload.value}
@@ -129,7 +130,7 @@ const CustomXAxisTick = ({ x, y, payload, angle = 0 }) => {
 
 // 圖1: 晶圓良率分析（按技術節點）
 export function WaferYieldChart({ data }) {
-  const { isMobile } = useResponsive();
+  const { chartMargin, xAxisConfig, fontSize } = useResponsive();
   if (!data || data.length === 0) return <ChartContainer title="晶圓良率分析（按技術節點）"><div style={{ padding: '20px', textAlign: 'center' }}>暫無資料</div></ChartContainer>;
 
   const techNodes = useMemo(
@@ -175,20 +176,24 @@ export function WaferYieldChart({ data }) {
 
   return (
     <ChartContainer title="晶圓良率分析（按技術節點）">
-      <ResponsiveContainer width="100%" aspect={2.5}>
+      <ResponsiveContainer width="100%" height={320}>
         <LineChart
           data={chartData}
-          margin={{ top: 8, right: 10, left: 10, bottom: 2 }}
+          margin={chartMargin}
         >
-          <CartesianGrid strokeDasharray="3 3" />
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
           <XAxis
             dataKey="month"
-            tick={<CustomXAxisTick angle={isMobile ? -45 : 0} />}
-            height={isMobile ? 60 : 40}
+            tick={<CustomXAxisTick angle={xAxisConfig.angle} />}
+            height={xAxisConfig.height}
+            interval={xAxisConfig.interval}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
           <YAxis
             domain={[90, 100]}
-            label={{ value: '良率 (%)', angle: -90, position: 'insideLeft' }}
+            label={{ value: '良率 (%)', angle: -90, position: 'insideLeft', style: { fill: 'rgba(255, 255, 255, 0.7)', fontSize: fontSize.axis } }}
+            tick={{ fontSize: fontSize.axis, fill: 'rgba(255, 255, 255, 0.7)' }}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
           <Tooltip content={<CustomTooltip />} wrapperStyle={{ zIndex: 9999 }} />
           <Legend content={<CustomLegend />} />
@@ -199,8 +204,8 @@ export function WaferYieldChart({ data }) {
               dataKey={node}
               stroke={colors[index % colors.length]}
               strokeWidth={2}
-              dot={{ r: 3 }}
-              activeDot={{ r: 5 }}
+              dot={{ r: 2.5 }}
+              activeDot={{ r: 4 }}
               connectNulls
             />
           ))}
