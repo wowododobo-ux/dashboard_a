@@ -300,7 +300,7 @@ export function CapacityOEEChart({ data }) {
 
 // 圖3: 生產週期時間達成率
 export function CycleTimeChart({ data }) {
-  const { isMobile } = useResponsive();
+  const { chartMargin, xAxisConfig, fontSize } = useResponsive();
   if (!data || data.length === 0) return <ChartContainer title="生產週期時間達成率"><div style={{ padding: '20px', textAlign: 'center' }}>暫無資料</div></ChartContainer>;
 
   const productTypes = useMemo(
@@ -340,20 +340,24 @@ export function CycleTimeChart({ data }) {
 
   return (
     <ChartContainer title="生產週期時間達成率">
-      <ResponsiveContainer width="100%" aspect={2.5}>
+      <ResponsiveContainer width="100%" height={320}>
         <BarChart
           data={chartData}
-          margin={{ top: 8, right: 10, left: 10, bottom: 2 }}
+          margin={chartMargin}
         >
-          <CartesianGrid strokeDasharray="3 3" />
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
           <XAxis
             dataKey="month"
-            tick={<CustomXAxisTick angle={isMobile ? -45 : 0} />}
-            height={isMobile ? 60 : 40}
+            tick={<CustomXAxisTick angle={xAxisConfig.angle} />}
+            height={xAxisConfig.height}
+            interval={xAxisConfig.interval}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
           <YAxis
             domain={[90, 105]}
-            label={{ value: '达成率 (%)', angle: -90, position: 'insideLeft' }}
+            label={{ value: '达成率 (%)', angle: -90, position: 'insideLeft', style: { fill: 'rgba(255, 255, 255, 0.7)', fontSize: fontSize.axis } }}
+            tick={{ fontSize: fontSize.axis, fill: 'rgba(255, 255, 255, 0.7)' }}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
           <Tooltip content={<CustomTooltip />} wrapperStyle={{ zIndex: 9999 }} />
           <Legend content={<CustomLegend />} />
@@ -372,7 +376,7 @@ export function CycleTimeChart({ data }) {
 
 // 圖4: 缺陷密度趨勢（按技術節點）
 export function DefectDensityChart({ data }) {
-  const { isMobile } = useResponsive();
+  const { chartMargin, xAxisConfig, fontSize } = useResponsive();
   if (!data || data.length === 0) return <ChartContainer title="缺陷密度趨勢（按技術節點）"><div style={{ padding: '20px', textAlign: 'center' }}>暫無資料</div></ChartContainer>;
 
   const techNodes = useMemo(
@@ -400,19 +404,23 @@ export function DefectDensityChart({ data }) {
 
   return (
     <ChartContainer title="缺陷密度趨勢（按技術節點）">
-      <ResponsiveContainer width="100%" aspect={2.5}>
+      <ResponsiveContainer width="100%" height={320}>
         <LineChart
           data={chartData}
-          margin={{ top: 8, right: 10, left: 10, bottom: 2 }}
+          margin={chartMargin}
         >
-          <CartesianGrid strokeDasharray="3 3" />
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
           <XAxis
             dataKey="month"
-            tick={<CustomXAxisTick angle={isMobile ? -45 : 0} />}
-            height={isMobile ? 60 : 40}
+            tick={<CustomXAxisTick angle={xAxisConfig.angle} />}
+            height={xAxisConfig.height}
+            interval={xAxisConfig.interval}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
           <YAxis
-            label={{ value: '缺陷密度 (个/cm²)', angle: -90, position: 'insideLeft' }}
+            label={{ value: '缺陷密度 (个/cm²)', angle: -90, position: 'insideLeft', style: { fill: 'rgba(255, 255, 255, 0.7)', fontSize: fontSize.axis } }}
+            tick={{ fontSize: fontSize.axis, fill: 'rgba(255, 255, 255, 0.7)' }}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
           <Tooltip content={<CustomTooltip />} wrapperStyle={{ zIndex: 9999 }} />
           <Legend content={<CustomLegend />} />
@@ -423,8 +431,8 @@ export function DefectDensityChart({ data }) {
               dataKey={node}
               stroke={colors[index % colors.length]}
               strokeWidth={2}
-              dot={{ r: 3 }}
-              activeDot={{ r: 5 }}
+              dot={{ r: 2.5 }}
+              activeDot={{ r: 4 }}
               connectNulls
             />
           ))}
@@ -436,7 +444,7 @@ export function DefectDensityChart({ data }) {
 
 // 圖5: WIP庫存天數
 export function WIPInventoryChart({ data }) {
-  const { isMobile } = useResponsive();
+  const { chartMargin, xAxisConfig, fontSize } = useResponsive();
   if (!data || data.length === 0) return <ChartContainer title="WIP庫存天數"><div style={{ padding: '20px', textAlign: 'center' }}>暫無資料</div></ChartContainer>;
 
   const productionLines = useMemo(
@@ -464,19 +472,23 @@ export function WIPInventoryChart({ data }) {
 
   return (
     <ChartContainer title="WIP庫存天數">
-      <ResponsiveContainer width="100%" aspect={2.5}>
+      <ResponsiveContainer width="100%" height={320}>
         <ComposedChart
           data={chartData}
-          margin={{ top: 8, right: 10, left: 10, bottom: 2 }}
+          margin={chartMargin}
         >
-          <CartesianGrid strokeDasharray="3 3" />
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
           <XAxis
             dataKey="month"
-            tick={<CustomXAxisTick angle={isMobile ? -45 : 0} />}
-            height={isMobile ? 60 : 40}
+            tick={<CustomXAxisTick angle={xAxisConfig.angle} />}
+            height={xAxisConfig.height}
+            interval={xAxisConfig.interval}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
           <YAxis
-            label={{ value: 'WIP天数', angle: -90, position: 'insideLeft' }}
+            label={{ value: 'WIP天数', angle: -90, position: 'insideLeft', style: { fill: 'rgba(255, 255, 255, 0.7)', fontSize: fontSize.axis } }}
+            tick={{ fontSize: fontSize.axis, fill: 'rgba(255, 255, 255, 0.7)' }}
+            stroke="rgba(255, 255, 255, 0.3)"
           />
           <Tooltip content={<CustomTooltip />} wrapperStyle={{ zIndex: 9999 }} />
           <Legend content={<CustomLegend />} />
