@@ -131,7 +131,7 @@ export function BookToBillHeatmap({ data }) {
 
     if (isMobile) {
       // 手機：計算可用寬度並均分給6個單元格
-      const availableWidth = Math.min(windowWidth - 60, 320); // 留出左右邊距
+      const availableWidth = Math.min((windowWidth || 375) - 60, 320); // 留出左右邊距，預設375px
       cellWidth = Math.floor((availableWidth - 70) / 6); // 70px for left margin
       cellHeight = 28;
       leftMargin = 70;
