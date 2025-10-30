@@ -253,7 +253,7 @@ export function BookToBillHeatmap({ data }) {
 
         {/* 圖例 */}
         <div style={{ marginTop: '20px', display: 'flex', alignItems: 'center', gap: '15px', flexWrap: 'wrap' }}>
-          <span style={{ fontWeight: 'bold', fontSize: '13px' }}>{textConfig.heatmapLegend.title}</span>
+          <span style={{ fontWeight: 'bold', fontSize: '13px', color: 'rgba(255, 255, 255, 0.9)' }}>{textConfig.heatmapLegend.title}</span>
           {[
             { color: '#d32f2f', label: textConfig.heatmapLegend.veryStrong },
             { color: '#f44336', label: textConfig.heatmapLegend.strong },
@@ -264,8 +264,8 @@ export function BookToBillHeatmap({ data }) {
             { color: '#0d47a1', label: textConfig.heatmapLegend.veryWeak }
           ].map((item, i) => (
             <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-              <div style={{ width: '20px', height: '20px', backgroundColor: item.color, border: '1px solid #ccc' }}></div>
-              <span style={{ fontSize: '12px' }}>{item.label}</span>
+              <div style={{ width: '20px', height: '20px', backgroundColor: item.color, border: '1px solid rgba(255, 255, 255, 0.3)' }}></div>
+              <span style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.85)' }}>{item.label}</span>
             </div>
           ))}
         </div>
