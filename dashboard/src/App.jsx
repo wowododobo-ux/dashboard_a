@@ -1,19 +1,34 @@
 import { BrowserRouter as Router, Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
 import './App.css';
-import HomePage from './pages/HomePage';
-import FinancialTrends from './pages/FinancialTrends';
-import ProductCustomerAnalysis from './pages/ProductCustomerAnalysis';
-import YearComparison from './pages/YearComparison';
-import BookToBill from './pages/BookToBill';
-import ProductionOperations from './pages/ProductionOperations';
-import MarketCustomer from './pages/MarketCustomer';
-import SupplyChain from './pages/SupplyChain';
-import RDTechnology from './pages/RDTechnology';
-import HumanResources from './pages/HumanResources';
-import RiskManagement from './pages/RiskManagement';
 import { textConfig } from './config/textConfig';
 import { useResponsive } from './hooks/useResponsive';
+
+// 使用 React.lazy 進行頁面級別的代碼拆分
+// 每個頁面只在訪問時才載入，減少初始載入大小
+const HomePage = lazy(() => import('./pages/HomePage'));
+const FinancialTrends = lazy(() => import('./pages/FinancialTrends'));
+const ProductCustomerAnalysis = lazy(() => import('./pages/ProductCustomerAnalysis'));
+const YearComparison = lazy(() => import('./pages/YearComparison'));
+const BookToBill = lazy(() => import('./pages/BookToBill'));
+const ProductionOperations = lazy(() => import('./pages/ProductionOperations'));
+const MarketCustomer = lazy(() => import('./pages/MarketCustomer'));
+const SupplyChain = lazy(() => import('./pages/SupplyChain'));
+const RDTechnology = lazy(() => import('./pages/RDTechnology'));
+const HumanResources = lazy(() => import('./pages/HumanResources'));
+const RiskManagement = lazy(() => import('./pages/RiskManagement'));
+
+// 載入中組件
+function LoadingFallback() {
+  return (
+    <div className="loading-container">
+      <div style={{ textAlign: 'center' }}>
+        <div style={{ fontSize: '24px', marginBottom: '10px' }}>⏳</div>
+        <div>{textConfig.common.loading || '載入中...'}</div>
+      </div>
+    </div>
+  );
+}
 
 function Navigation() {
   const location = useLocation();
@@ -99,19 +114,21 @@ function AppContent() {
   return (
     <div className="app-wrapper">
       <Navigation />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/financial" element={<FinancialTrends />} />
-        <Route path="/product-customer" element={<ProductCustomerAnalysis />} />
-        <Route path="/book-to-bill" element={<BookToBill />} />
-        <Route path="/production" element={<ProductionOperations />} />
-        <Route path="/market" element={<MarketCustomer />} />
-        <Route path="/supply-chain" element={<SupplyChain />} />
-        <Route path="/rd" element={<RDTechnology />} />
-        <Route path="/hr" element={<HumanResources />} />
-        <Route path="/risk" element={<RiskManagement />} />
-        <Route path="/compare/:chartId" element={<YearComparison />} />
-      </Routes>
+      <Suspense fallback={<LoadingFallback />}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/financial" element={<FinancialTrends />} />
+          <Route path="/product-customer" element={<ProductCustomerAnalysis />} />
+          <Route path="/book-to-bill" element={<BookToBill />} />
+          <Route path="/production" element={<ProductionOperations />} />
+          <Route path="/market" element={<MarketCustomer />} />
+          <Route path="/supply-chain" element={<SupplyChain />} />
+          <Route path="/rd" element={<RDTechnology />} />
+          <Route path="/hr" element={<HumanResources />} />
+          <Route path="/risk" element={<RiskManagement />} />
+          <Route path="/compare/:chartId" element={<YearComparison />} />
+        </Routes>
+      </Suspense>
     </div>
   );
 }
