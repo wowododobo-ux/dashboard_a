@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
 // 優化配置：啟用代碼分割和懶加載
+// 更新時間：2025-11-01
 export default defineConfig({
   plugins: [react()],
   build: {
