@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
+// 優化配置：啟用代碼分割和懶加載
 export default defineConfig({
   plugins: [react()],
   build: {
