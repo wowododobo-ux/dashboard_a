@@ -5,7 +5,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   build: {
-    chunkSizeWarningLimit: 1500, // 提高到 1500KB，適合包含多個圖表庫的應用
+    chunkSizeWarningLimit: 500, // 設置為 500KB
     rollupOptions: {
       output: {
         manualChunks: {
