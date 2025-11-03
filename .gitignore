@@ -46,13 +46,12 @@ coverage/
 # Vercel
 .vercel
 
-# Netlify
-.netlify
-
 # 備份
 backups/
 *.backup
 *.bak
+dashboard-backup/
+*-backup/
 
 # 操作系統
 Thumbs.db

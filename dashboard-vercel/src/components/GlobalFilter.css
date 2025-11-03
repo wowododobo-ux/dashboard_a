@@ -1,0 +1,383 @@
+/* 全局篩選器容器 */
+.global-filter {
+  background: #1e2139;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* 篩選器標題區域 */
+.filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.filter-title-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 200px;
+}
+
+.filter-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: white;
+  margin: 0;
+}
+
+.filter-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  background: rgba(102, 126, 234, 0.2);
+  border: 1px solid rgba(102, 126, 234, 0.4);
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #667eea;
+  white-space: nowrap;
+}
+
+.filter-reset-btn {
+  padding: 8px 16px;
+  background: rgba(244, 67, 54, 0.1);
+  border: 1px solid rgba(244, 67, 54, 0.3);
+  border-radius: 6px;
+  color: #f44336;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.filter-reset-btn:hover {
+  background: rgba(244, 67, 54, 0.2);
+  border-color: rgba(244, 67, 54, 0.5);
+  transform: translateY(-1px);
+}
+
+.filter-reset-btn:active {
+  transform: translateY(0);
+}
+
+/* 篩選控制項區域 */
+.filter-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filter-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.filter-select {
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.filter-select:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.filter-select:focus {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.filter-select option {
+  background: #1e2139;
+  color: white;
+}
+
+/* 自定義日期範圍選擇器 */
+.custom-date-range {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 8px;
+}
+
+.date-range-inputs {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.date-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  min-width: 140px;
+}
+
+.date-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.date-input {
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.date-input:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.date-input:focus {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* 日期輸入框的日曆圖標顏色 */
+.date-input::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}
+
+.date-separator {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.4);
+  padding-bottom: 10px;
+  font-weight: 300;
+}
+
+.date-apply-btn,
+.date-cancel-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  height: fit-content;
+}
+
+.date-apply-btn {
+  background: #667eea;
+  color: white;
+}
+
+.date-apply-btn:hover {
+  background: #5568d3;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.date-cancel-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.date-cancel-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.date-apply-btn:active,
+.date-cancel-btn:active {
+  transform: translateY(0);
+}
+
+/* 篩選摘要區域 */
+.filter-summary {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.summary-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.summary-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.summary-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  background: rgba(102, 126, 234, 0.15);
+  border: 1px solid rgba(102, 126, 234, 0.3);
+  border-radius: 6px;
+  font-size: 13px;
+  color: #a8b4f5;
+  white-space: nowrap;
+}
+
+/* 響應式設計 */
+@media (max-width: 1280px) {
+  .filter-controls {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .global-filter {
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  .filter-header {
+    padding-bottom: 14px;
+    gap: 12px;
+  }
+
+  .filter-title {
+    font-size: 18px;
+  }
+
+  .filter-controls {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 14px;
+  }
+
+  .date-range-inputs {
+    gap: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .global-filter {
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+
+  .filter-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-title-section {
+    justify-content: space-between;
+  }
+
+  .filter-reset-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .filter-controls {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .date-range-inputs {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .date-input-group {
+    min-width: auto;
+  }
+
+  .date-separator {
+    display: none;
+  }
+
+  .date-apply-btn,
+  .date-cancel-btn {
+    width: 100%;
+  }
+
+  .filter-summary {
+    padding: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .global-filter {
+    padding: 12px;
+  }
+
+  .filter-title {
+    font-size: 16px;
+  }
+
+  .filter-badge {
+    font-size: 11px;
+    padding: 3px 10px;
+  }
+
+  .filter-controls {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .filter-select,
+  .date-input {
+    font-size: 13px;
+    padding: 9px 12px;
+  }
+
+  .custom-date-range {
+    padding: 16px;
+  }
+
+  .summary-tag {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+}

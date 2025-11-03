@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <!-- 背景 -->
+  <rect width="48" height="48" rx="8" fill="url(#bgGrad)"/>
+
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00D9FF;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#4FC3F7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#A78BFA;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- 半導體晶圓圖標 -->
+  <g transform="translate(6, 6)">
+    <!-- 外圓 -->
+    <circle cx="18" cy="18" r="17" stroke="white" stroke-width="1.5" fill="none" opacity="0.3"/>
+    <circle cx="18" cy="18" r="16" stroke="white" stroke-width="2.5" fill="none"/>
+
+    <!-- 內部電路圖案 -->
+    <path d="M 10 18 L 14 18 M 22 18 L 26 18 M 18 10 L 18 14 M 18 22 L 18 26"
+          stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+
+    <!-- 中央晶片 -->
+    <rect x="14" y="14" width="8" height="8" rx="1" fill="white"/>
+
+    <!-- 角落連接點 -->
+    <circle cx="12" cy="12" r="2" fill="white"/>
+    <circle cx="24" cy="12" r="2" fill="white"/>
+    <circle cx="12" cy="24" r="2" fill="white"/>
+    <circle cx="24" cy="24" r="2" fill="white"/>
+  </g>
+</svg>

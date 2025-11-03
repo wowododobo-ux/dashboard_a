@@ -1,0 +1,350 @@
+.kpi-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  padding: 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.kpi-modal-content {
+  background: linear-gradient(135deg, #1e1e2e 0%, #252944 100%);
+  border-radius: 16px;
+  max-width: 1200px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Header */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 32px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: sticky;
+  top: 0;
+  background: linear-gradient(135deg, #1e1e2e 0%, #252944 100%);
+  z-index: 10;
+}
+
+.modal-header h2 {
+  margin: 0 0 12px 0;
+  font-size: 28px;
+  color: white;
+  font-weight: 600;
+}
+
+.modal-header-meta {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  align-items: center;
+  font-size: 14px;
+}
+
+.modal-header-meta span {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.modal-header-meta strong {
+  color: white;
+  font-weight: 600;
+}
+
+.status-badge {
+  padding: 6px 16px;
+  border-radius: 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: white;
+}
+
+.close-button {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: rotate(90deg);
+}
+
+/* Body */
+.modal-body {
+  padding: 32px;
+}
+
+.modal-body section {
+  margin-bottom: 32px;
+}
+
+.modal-body section:last-child {
+  margin-bottom: 0;
+}
+
+.modal-body h3 {
+  margin: 0 0 20px 0;
+  font-size: 20px;
+  color: white;
+  font-weight: 600;
+  padding-bottom: 12px;
+  border-bottom: 2px solid rgba(102, 126, 234, 0.3);
+}
+
+/* 趨勢圖表 */
+.chart-section {
+}
+
+.chart-container {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+/* 關鍵驅動因素 */
+.drivers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.driver-card {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  padding: 20px;
+  border-left: 4px solid #667eea;
+}
+
+.driver-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.driver-number {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: white;
+}
+
+.driver-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+}
+
+.driver-impact {
+  margin-bottom: 12px;
+}
+
+.impact-value {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.impact-value.positive {
+  color: #4caf50;
+}
+
+.impact-value.negative {
+  color: #f44336;
+}
+
+.driver-description {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Variance Table */
+.variance-table-container {
+  overflow-x: auto;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+}
+
+.variance-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.variance-table thead {
+  background: rgba(102, 126, 234, 0.2);
+}
+
+.variance-table th {
+  padding: 16px;
+  text-align: left;
+  font-weight: 600;
+  color: white;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.variance-table td {
+  padding: 14px 16px;
+  color: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.variance-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.variance-table td.positive {
+  color: #4caf50;
+  font-weight: 600;
+}
+
+.variance-table td.negative {
+  color: #f44336;
+  font-weight: 600;
+}
+
+/* 結論 */
+.conclusion-section {
+}
+
+.conclusion-text {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+  padding: 20px;
+  border-radius: 12px;
+  border-left: 4px solid #667eea;
+  font-size: 16px;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+}
+
+/* 響應式設計 */
+@media (max-width: 1024px) {
+  .modal-header {
+    padding: 24px;
+  }
+
+  .modal-body {
+    padding: 24px;
+  }
+
+  .drivers-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .kpi-modal-overlay {
+    padding: 10px;
+  }
+
+  .modal-header {
+    padding: 20px;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .modal-header h2 {
+    font-size: 22px;
+  }
+
+  .modal-header-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .close-button {
+    align-self: flex-end;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+
+  .modal-body {
+    padding: 20px;
+  }
+
+  .modal-body h3 {
+    font-size: 18px;
+  }
+
+  .chart-container {
+    padding: 12px;
+  }
+
+  .variance-table {
+    font-size: 12px;
+  }
+
+  .variance-table th,
+  .variance-table td {
+    padding: 10px 8px;
+  }
+}
+
+/* 滾動條樣式 */
+.kpi-modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.kpi-modal-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+.kpi-modal-content::-webkit-scrollbar-thumb {
+  background: rgba(102, 126, 234, 0.5);
+  border-radius: 4px;
+}
+
+.kpi-modal-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(102, 126, 234, 0.7);
+}

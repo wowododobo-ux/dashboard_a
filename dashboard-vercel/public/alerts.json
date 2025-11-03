@@ -1,0 +1,296 @@
+{
+  "alerts": [
+    {
+      "id": "ALT-0001",
+      "timestamp": "2025-10-30T06:15:00.000Z",
+      "module": "financial",
+      "type": "毛利率下降",
+      "severity": "warning",
+      "title": "毛利率低於目標",
+      "description": "2025年10月毛利率為 38.2%，低於目標值 40%",
+      "value": 38.2,
+      "threshold": 40,
+      "unit": "%",
+      "status": "pending",
+      "chartId": "chart1",
+      "relatedData": {
+        "period": "2025-10",
+        "metric": "銷貨毛利率"
+      }
+    },
+    {
+      "id": "ALT-0002",
+      "timestamp": "2025-10-30T05:45:00.000Z",
+      "module": "financial",
+      "type": "營業費用異常",
+      "severity": "critical",
+      "title": "營業費用率超標",
+      "description": "2025年10月營業費用率達 22.5%，超過預警線 20%",
+      "value": 22.5,
+      "threshold": 20,
+      "unit": "%",
+      "status": "pending",
+      "chartId": "chart6",
+      "relatedData": {
+        "period": "2025-10",
+        "metric": "營業費用率"
+      }
+    },
+    {
+      "id": "ALT-0003",
+      "timestamp": "2025-10-30T04:30:00.000Z",
+      "module": "financial",
+      "type": "存貨跌價",
+      "severity": "warning",
+      "title": "存貨跌價損失增加",
+      "description": "存貨跌價損失增加 15%，需注意庫存管理",
+      "value": 15,
+      "threshold": 10,
+      "unit": "%",
+      "status": "acknowledged",
+      "chartId": "chart4",
+      "acknowledgedBy": "財務部-張經理",
+      "acknowledgedAt": "2025-10-30T05:00:00.000Z",
+      "relatedData": {
+        "period": "2025-10",
+        "metric": "跌價損失率"
+      }
+    },
+    {
+      "id": "ALT-0004",
+      "timestamp": "2025-10-30T06:00:00.000Z",
+      "module": "production",
+      "type": "良率下降",
+      "severity": "critical",
+      "title": "3nm製程良率低於目標",
+      "description": "3nm製程良率降至 82%，低於目標 85%",
+      "value": 82,
+      "threshold": 85,
+      "unit": "%",
+      "status": "pending",
+      "chartId": "production-chart1",
+      "relatedData": {
+        "period": "2025-10",
+        "process": "3nm",
+        "metric": "良率"
+      }
+    },
+    {
+      "id": "ALT-0005",
+      "timestamp": "2025-10-30T05:30:00.000Z",
+      "module": "production",
+      "type": "OEE異常",
+      "severity": "warning",
+      "title": "整體設備效率下降",
+      "description": "OEE從 88% 降至 82%，需檢查設備狀況",
+      "value": 82,
+      "threshold": 85,
+      "unit": "%",
+      "status": "pending",
+      "chartId": "production-chart2",
+      "relatedData": {
+        "period": "2025-10",
+        "metric": "OEE"
+      }
+    },
+    {
+      "id": "ALT-0006",
+      "timestamp": "2025-10-30T02:30:00.000Z",
+      "module": "production",
+      "type": "交貨延遲",
+      "severity": "warning",
+      "title": "準時交貨率下降",
+      "description": "準時交貨率降至 91%，低於目標 95%",
+      "value": 91,
+      "threshold": 95,
+      "unit": "%",
+      "status": "acknowledged",
+      "chartId": "production-chart3",
+      "acknowledgedBy": "生產部-李主管",
+      "acknowledgedAt": "2025-10-30T03:30:00.000Z",
+      "relatedData": {
+        "period": "2025-10",
+        "metric": "準時交貨率"
+      }
+    },
+    {
+      "id": "ALT-0007",
+      "timestamp": "2025-10-30T06:10:00.000Z",
+      "module": "market",
+      "type": "市佔率下降",
+      "severity": "warning",
+      "title": "北美市場佔有率下滑",
+      "description": "北美市場佔有率從 28% 降至 25%",
+      "value": 25,
+      "threshold": 27,
+      "unit": "%",
+      "status": "pending",
+      "chartId": "market-chart1",
+      "relatedData": {
+        "period": "2025-10",
+        "region": "北美",
+        "metric": "市佔率"
+      }
+    },
+    {
+      "id": "ALT-0008",
+      "timestamp": "2025-10-30T03:30:00.000Z",
+      "module": "market",
+      "type": "客戶滿意度",
+      "severity": "info",
+      "title": "客戶滿意度略降",
+      "description": "整體客戶滿意度從 4.5 降至 4.3",
+      "value": 4.3,
+      "threshold": 4.4,
+      "unit": "分",
+      "status": "acknowledged",
+      "chartId": "market-chart3",
+      "acknowledgedBy": "市場部-王經理",
+      "acknowledgedAt": "2025-10-30T04:00:00.000Z",
+      "relatedData": {
+        "period": "2025-10",
+        "metric": "客戶滿意度"
+      }
+    },
+    {
+      "id": "ALT-0009",
+      "timestamp": "2025-10-30T06:20:00.000Z",
+      "module": "supplyChain",
+      "type": "庫存不足",
+      "severity": "critical",
+      "title": "矽晶圓庫存低於安全水位",
+      "description": "矽晶圓庫存僅剩 15 天，低於安全庫存 30 天",
+      "value": 15,
+      "threshold": 30,
+      "unit": "天",
+      "status": "pending",
+      "chartId": "supply-chart1",
+      "relatedData": {
+        "period": "2025-10",
+        "material": "矽晶圓",
+        "metric": "庫存天數"
+      }
+    },
+    {
+      "id": "ALT-0010",
+      "timestamp": "2025-10-30T01:30:00.000Z",
+      "module": "supplyChain",
+      "type": "供應商延遲",
+      "severity": "warning",
+      "title": "供應商 B 交貨準時率下降",
+      "description": "供應商 B 準時交貨率降至 88%，低於標準 95%",
+      "value": 88,
+      "threshold": 95,
+      "unit": "%",
+      "status": "resolved",
+      "chartId": "supply-chart2",
+      "acknowledgedBy": "採購部-陳主管",
+      "acknowledgedAt": "2025-10-30T02:00:00.000Z",
+      "resolvedAt": "2025-10-30T05:30:00.000Z",
+      "relatedData": {
+        "period": "2025-10",
+        "supplier": "供應商B",
+        "metric": "準時交貨率"
+      }
+    },
+    {
+      "id": "ALT-0011",
+      "timestamp": "2025-10-30T00:30:00.000Z",
+      "module": "rd",
+      "type": "研發進度延遲",
+      "severity": "warning",
+      "title": "2nm研究進度落後",
+      "description": "2nm研究進度為 65%，落後計劃進度 75%",
+      "value": 65,
+      "threshold": 75,
+      "unit": "%",
+      "status": "acknowledged",
+      "chartId": "rd-chart1",
+      "acknowledgedBy": "研發部-劉博士",
+      "acknowledgedAt": "2025-10-30T01:30:00.000Z",
+      "relatedData": {
+        "period": "2025-10",
+        "project": "2nm研究",
+        "metric": "進度"
+      }
+    },
+    {
+      "id": "ALT-0012",
+      "timestamp": "2025-10-29T22:30:00.000Z",
+      "module": "hr",
+      "type": "離職率上升",
+      "severity": "warning",
+      "title": "研發工程師保留率下降",
+      "description": "研發工程師保留率降至 92%，低於目標 95%",
+      "value": 92,
+      "threshold": 95,
+      "unit": "%",
+      "status": "acknowledged",
+      "chartId": "hr-chart1",
+      "acknowledgedBy": "人資部-黃經理",
+      "acknowledgedAt": "2025-10-29T23:30:00.000Z",
+      "relatedData": {
+        "period": "2025-10",
+        "position": "研發工程師",
+        "metric": "保留率"
+      }
+    },
+    {
+      "id": "ALT-0013",
+      "timestamp": "2025-10-30T06:05:00.000Z",
+      "module": "risk",
+      "type": "EHS異常",
+      "severity": "critical",
+      "title": "安全事件數超標",
+      "description": "本月安全事件數達 5 件，超過目標 2 件",
+      "value": 5,
+      "threshold": 2,
+      "unit": "件",
+      "status": "pending",
+      "chartId": "risk-chart2",
+      "relatedData": {
+        "period": "2025-10",
+        "metric": "安全事件數"
+      }
+    },
+    {
+      "id": "ALT-0014",
+      "timestamp": "2025-10-30T05:00:00.000Z",
+      "module": "productCustomer",
+      "type": "客戶流失",
+      "severity": "warning",
+      "title": "A級客戶營收下降",
+      "description": "A級客戶總營收環比下降 8%",
+      "value": -8,
+      "threshold": -5,
+      "unit": "%",
+      "status": "pending",
+      "chartId": "product-customer-chart4",
+      "relatedData": {
+        "period": "2025-10",
+        "customerGrade": "A",
+        "metric": "營收變化"
+      }
+    },
+    {
+      "id": "ALT-0015",
+      "timestamp": "2025-10-30T05:50:00.000Z",
+      "module": "bookToBill",
+      "type": "訂單下滑",
+      "severity": "warning",
+      "title": "Book to Bill 比值偏低",
+      "description": "未來3個月 Book to Bill 比值為 0.92，低於健康值 1.0",
+      "value": 0.92,
+      "threshold": 1,
+      "unit": "",
+      "status": "pending",
+      "chartId": "book-to-bill-heatmap",
+      "relatedData": {
+        "period": "2025-10",
+        "offset": "+3月",
+        "metric": "Book to Bill"
+      }
+    }
+  ],
+  "lastUpdate": "2025-10-29T16:51:44.276Z"
+}
